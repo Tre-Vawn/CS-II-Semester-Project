@@ -1,16 +1,16 @@
 Account Summary Report By Owner
 ========================================================================================================================
-Account		    Owner					Manager      		   Fees	           Return			Return %	 Value
-AC001           Castro, Sam             Cartnell, Billiam      $82.50          $304334.92        69.762%     $740584.92
-AC002           Sampson, Rocky          Rainey, Tre-Vawn       $75.00          $256579.02       574.555%     $301236.02
-AC003           Morales, Miles          Rahe, Michael          $100.00         $323291.00       246.167%     $454621.00
-AC004           Wood, Ethan             Bopp, Logan            $0.00           $444293.25        68.264%     $1095141.25
-AC005           Sveum, Gale             Bourke, Chris          $110.00         $700228.87       139.993%     $1200418.87
-ACOO6           Sveum, Gale             Bourke, Chris          $0.00           $3000.00          27.273%     $14000.00
-ACOO7           Sveum, Gale             Bourke, Chris          $0.00           $20000.00        200.000%     $30000.00
-AC008           Sveum, Gale             Bourke, Chris          $0.00           $47.60             3.276%     $1500.42
+Account			Owner					Manager				   Fees				Return			Return%	      Value
+AC001           Castro, Sam             Cartnell, Billiam      $82.50          $374198.36        83.620%     $821698.36
+AC002           Sampson, Rocky          Rainey, Tre-Vawn       $75.00          $-60581.48       -93.470%     $4232.52
+AC003           Morales, Miles          Rahe, Michael          $100.00         $550155.10       378.595%     $695470.00
+AC004           Wood, Ethan             Bopp, Logan            $0.00           $-614155.35      -98.700%     $8090.05
+AC005           Sveum, Gale             Bourke, Chris          $110.00         $119466224.42    22358.052%   $120000556.42
+ACOO6           Sveum, Gale             Bourke, Chris          $0.00           $-72560.00       -86.381%     $11440.00
+ACOO7           Sveum, Gale             Bourke, Chris          $0.00           $-21894.00       -100.000%    $0.00 
+AC008           Sveum, Gale             Bourke, Chris          $0.00           $235.92           15.166%     $1791.52
                                                      -------------------------------------------------------------------
-                                                     Totals    $367.50         $2051774.67                   $3837502.49
+                                                     Totals    $367.50         $119621622.97                 $121543278.87
 
 
 Account Details
@@ -40,8 +40,8 @@ Morales, Miles
 |  Assets  |
 +----------+
 TRE003   Trecoin   (Cryptocurrency)
-  Cost Basis: 5.250 coins @ $5000.00 on 2015-03-01
-  Value Basis: 5.250 coins @ $65694.50 less 1.25%                                  1197.466%     $340584.92
+  Cost Basis: 6.250 coins @ $6000.00 on 2015-03-01
+  Value Basis: 6.250 coins @ $68694.50 less 1.78%                                  1024.529%     $421698.36
 
 PA001   Park Palace   (Property)
   Cost Basis: purchased @ $410000.00 on 2021-04-05
@@ -51,11 +51,11 @@ PA001   Park Palace   (Property)
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $ 740584.92
-Cost Basis:          $ 436250.00
+Total Value:         $ 821698.36
+Cost Basis:          $ 447500.00
 Total Account Fees:  $     82.50
-Total Return:        $ 304334.92
-Total Return %:            69.76%
+Total Return:        $ 374198.36
+Total Return %:            83.62%
 
 ======================================
 ||    Pro Account  AC002          ||
@@ -82,23 +82,23 @@ Sveum, Gale
 |  Assets  |
 +----------+
 BING001   Bing Inc.   BING  (Stock)
-  Cost Basis: 100.000 shares @ $411.57 on 2016-02-03
-  Value Basis: 100.000 shares @ $3000.00
-                                                                                    631.911%     $301232.52
+  Cost Basis: 200.000 shares @ $311.57 on 2016-02-03
+  Value Basis: 200.000 shares @ $2.00
+                                                                                    -97.220%     $1732.52
 
 PA004   2005 Honda CR-V   (Property)
-  Cost Basis: purchased @ $3500.00 on 1995-07-01
-  Value Basis: appraised @ $3.50
-                                                                                    -99.900%     $3.50
+  Cost Basis: purchased @ $2500.00 on 1995-07-01
+  Value Basis: appraised @ $2500.00
+                                                                                      0.000%     $2500.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $ 301236.02
-Cost Basis:          $  44657.00
+Total Value:         $   4232.52
+Cost Basis:          $  64814.00
 Total Account Fees:  $     75.00
-Total Return:        $ 256579.02
-Total Return %:           574.55%
+Total Return:        $ -60581.48
+Total Return %:           -93.47%
 
 ======================================
 ||    Noob Account AC003         ||
@@ -125,23 +125,23 @@ Wood, Ethan
 |  Assets  |
 +----------+
 123SAM   Samsung   SAMS  (Stock)
-  Cost Basis: 1000.000 shares @ $120.83 on 2001-10-30
-  Value Basis: 1000.000 shares @ $429.80
-                                                                                    264.248%     $440121.00
+  Cost Basis: 1030.000 shares @ $130.83 on 2001-10-30
+  Value Basis: 1030.000 shares @ $5.00
+                                                                                    -88.520%     $15470.00
 
 PA005   2022 Tesla Roadster   (Property)
-  Cost Basis: purchased @ $10500.00 on 2020-03-01
-  Value Basis: appraised @ $14500.00
-                                                                                     38.095%     $14500.00
+  Cost Basis: purchased @ $10560.00 on 2020-03-01
+  Value Basis: appraised @ $680000.00
+                                                                                   6339.394%     $680000.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $ 454621.00
-Cost Basis:          $ 131330.00
+Total Value:         $ 695470.00
+Cost Basis:          $ 145314.90
 Total Account Fees:  $    100.00
-Total Return:        $ 323291.00
-Total Return %:           246.17%
+Total Return:        $ 550155.10
+Total Return %:           378.60%
 
 ======================================
 ||    Noob Account AC004         ||
@@ -165,28 +165,28 @@ Bopp, Logan
 |  Assets  |
 +----------+
 BING001   Bing Inc.   BING  (Stock)
-  Cost Basis: 150.000 shares @ $928.52 on 2020-01-01
-  Value Basis: 150.000 shares @ $3000.00
-                                                                                    223.095%     $450000.00
+  Cost Basis: 140.000 shares @ $938.52 on 2020-01-01
+  Value Basis: 140.000 shares @ $2.00
+                                                                                    -99.785%     $282.00
 
 123SAM   Samsung   SAMS  (Stock)
-  Cost Basis: 1500.000 shares @ $340.21 on 2013-04-25
-  Value Basis: 1500.000 shares @ $429.80
-                                                                                     26.351%     $644787.25
+  Cost Basis: 1460.000 shares @ $335.21 on 2013-04-25
+  Value Basis: 1460.000 shares @ $5.00
+                                                                                    -98.492%     $7382.25
 
 N0TPIX   3D Systems   DDD  (Stock)
-  Cost Basis: 10.000 shares @ $125.50 on 2016-11-03
-  Value Basis: 10.000 shares @ $35.40
-                                                                                    -71.793%     $354.00
+  Cost Basis: 12.000 shares @ $120.50 on 2016-11-03
+  Value Basis: 12.000 shares @ $35.40
+                                                                                    -70.553%     $425.80
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $1095141.25
-Cost Basis:          $ 650848.00
+Total Value:         $   8090.05
+Cost Basis:          $ 622245.40
 Total Account Fees:  $      0.00
-Total Return:        $ 444293.25
-Total Return %:            68.26%
+Total Return:        $-614155.35
+Total Return %:           -98.70%
 
 ======================================
 ||    Noob Account AC005         ||
@@ -218,22 +218,22 @@ N0TPIX   3D Systems   DDD  (Stock)
                                                                                     183.200%     $354.00
 
 TRE003   Trecoin   (Cryptocurrency)
-  Cost Basis: 0.001 coins @ $65000.00 on 2021-01-01
-  Value Basis: 0.001 coins @ $65694.50 less 1.25%                                    -0.195%     $64.87
+  Cost Basis: 0.003 coins @ $69000.00 on 2021-01-01
+  Value Basis: 0.003 coins @ $68694.50 less 1.78%                                    -2.215%     $202.42
 
 PA003   First Edition Charizard   (Property)
-  Cost Basis: purchased @ $500000.00 on 2010-08-30
-  Value Basis: appraised @ $1200000.00
-                                                                                    140.000%     $1200000.00
+  Cost Basis: purchased @ $534000.00 on 2010-08-30
+  Value Basis: appraised @ $120000000.00
+                                                                                  22371.910%     $120000000.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $1200418.87
-Cost Basis:          $ 500190.00
+Total Value:         $120000556.42
+Cost Basis:          $ 534332.00
 Total Account Fees:  $    110.00
-Total Return:        $ 700228.87
-Total Return %:           139.99%
+Total Return:        $119466224.42
+Total Return %:         22358.05%
 
 ======================================
 ||    Pro Account  ACOO6          ||
@@ -260,43 +260,41 @@ Castro, Sam
 |  Assets  |
 +----------+
 BING001   Bing Inc.   Option   BING   (Call)
-  Buy up to 100.000 shares @ $3200.00 until 2021-12-31
-  Premium of $10.00/share $1000.00 total
-  Share Price: $3000.00
-  Long Call (not executed) total loss: $1000.00
+  Buy up to 200.000 shares @ $3100.00 until 2021-12-31
+  Premium of $20.00/share $4000.00 total
+  Share Price: $2.00
+  Long Call (not executed) total loss: $4000.00
                                                                                    -100.000%     $0.00
 
 BING001   Bing Inc.   Option   BING   (Call)
-  Buy up to 100.000 shares @ $2800.00 until 2021-12-31
-  Premium of $100.00/share $10000.00 total
-  Share Price: $3000.00
-  Short Call Value: 100.000 shares @
-     ($3000.00 - $2800.00 - $100.00 = $10000.00)
-                                                                                    100.000%     $20000.00
+  Buy up to 400.000 shares @ $3000.00 until 2021-12-31
+  Premium of $200.00/share $80000.00 total
+  Share Price: $2.00
+  Long Call (not executed) total loss: $80000.00
+                                                                                   -100.000%     $0.00
 
 BING001   Bing Inc.   Option   BING   (Put)
-  Sell up to 100.000 shares @ $3200.00 until 2021-12-31
-  Premium of $15.00/share $1500.00 total
-  Share Price: $3000.00
-  Long Put Value: = 100.000 shares @ $15.00 = $1500.00
-                                                                                    100.000%     $1500.00
+  Sell up to 122.000 shares @ $3200.00 until 2021-12-31
+  Premium of $20.00/share $2440.00 total
+  Share Price: $2.00
+  Long Put Value: = 122.000 shares @ $20.00 = $2440.00
+                                                                                    100.000%     $2440.00
 
 BING001   Bing Inc.   Option   BING   (Put)
-  Sell up to 100.000 shares @ $2900.00 until 2021-12-31
-  Premium of $25.00/share $2500.00 total
-  Share Price: $3000.00
-  Short Put Value: 100.000 shares @
-     ($3000.00 - $2900.00 - $25.00 = $-7500.00)
-                                                                                   -100.000%     $-7500.00
+  Sell up to 300.000 shares @ $2900.00 until 2021-12-31
+  Premium of $30.00/share $9000.00 total
+  Share Price: $2.00
+  Long Put Value: = 300.000 shares @ $30.00 = $9000.00
+                                                                                    100.000%     $9000.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $  14000.00
-Cost Basis:          $  11000.00
+Total Value:         $  11440.00
+Cost Basis:          $  84000.00
 Total Account Fees:  $      0.00
-Total Return:        $   3000.00
-Total Return %:            27.27%
+Total Return:        $ -72560.00
+Total Return %:           -86.38%
 
 ======================================
 ||    Pro Account  ACOO7          ||
@@ -323,21 +321,20 @@ Castro, Sam
 |  Assets  |
 +----------+
 BING001   Bing Inc.   Option   BING   (Call)
-  Buy up to 100.000 shares @ $2700.00 until 2021-12-31
-  Premium of $100.00/share $10000.00 total
-  Share Price: $3000.00
-  Short Call Value: 100.000 shares @
-     ($3000.00 - $2700.00 - $100.00 = $20000.00)
-                                                                                    200.000%     $30000.00
+  Buy up to 123.000 shares @ $2900.00 until 2021-12-31
+  Premium of $178.00/share $21894.00 total
+  Share Price: $2.00
+  Long Call (not executed) total loss: $21894.00
+                                                                                   -100.000%     $0.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $  30000.00
-Cost Basis:          $  10000.00
+Total Value:         $      0.00
+Cost Basis:          $  21894.00
 Total Account Fees:  $      0.00
-Total Return:        $  20000.00
-Total Return %:           200.00%
+Total Return:        $ -21894.00
+Total Return %:          -100.00%
 
 ======================================
 ||    Pro Account  AC008          ||
@@ -364,72 +361,74 @@ Castro, Sam
 |  Assets  |
 +----------+
 MYS   Mystery Inc.   Option   MYS   (Call)
-  Buy up to 62.000 shares @ $147.66 until 2022-12-31
-  Premium of $9.00/share $558.00 total
-  Share Price: $125.00
-  Long Call (not executed) total loss: $558.00
+  Buy up to 60.000 shares @ $142.68 until 2022-12-31
+  Premium of $10.00/share $600.00 total
+  Share Price: $130.00
+  Long Call (not executed) total loss: $600.00
                                                                                    -100.000%     $0.00
 
 MYS   Mystery Inc.   Option   MYS   (Call)
-  Buy up to 78.000 shares @ $101.32 until 2022-12-31
-  Premium of $8.42/share $656.76 total
-  Share Price: $125.00
-  Short Call Value: 78.000 shares @
-     ($125.00 - $101.32 - $8.42 = $1190.28)
-                                                                                    181.235%     $1847.04
+  Buy up to 80.000 shares @ $103.33 until 2022-12-31
+  Premium of $8.43/share $674.40 total
+  Share Price: $130.00
+  Short Call Value: 80.000 shares @
+     ($130.00 - $103.33 - $8.43 = $1459.20)
+                                                                                    216.370%     $2133.60
 
 MYS   Mystery Inc.   Option   MYS   (Call)
-  Buy up to 42.000 shares @ $124.50 until 2022-12-31
-  Premium of $5.43/share $228.06 total
-  Share Price: $125.00
-  Short Call Value: 42.000 shares @
-     ($125.00 - $124.50 - $5.43 = $-207.06)
-                                                                                    -90.792%     $21.00
+  Buy up to 40.000 shares @ $125.50 until 2022-12-31
+  Premium of $6.43/share $257.20 total
+  Share Price: $130.00
+  Short Call Value: 40.000 shares @
+     ($130.00 - $125.50 - $6.43 = $-77.20)
+                                                                                    -30.016%     $180.00
 
 MYS   Mystery Inc.   Option   MYS   (Call)
-  Buy up to 10.000 shares @ $124.00 until 2022-12-31
-  Premium of $1.00/share $10.00 total
-  Share Price: $125.00
-  Short Call Value: 10.000 shares @
-     ($125.00 - $124.00 - $1.00 = $0.00)
-                                                                                      0.000%     $10.00
+  Buy up to 12.000 shares @ $124.40 until 2022-12-31
+  Premium of $2.00/share $24.00 total
+  Share Price: $130.00
+  Short Call Value: 12.000 shares @
+     ($130.00 - $124.40 - $2.00 = $43.20)
+                                                                                    180.000%     $67.20
 
 MYS   Mystery Inc.   Option   MYS   (Put)
-  Sell up to 27.000 shares @ $137.13 until 2022-12-31
-  Premium of $12.23/share $330.21 total
-  Share Price: $125.00
-  Long Put Value: = 27.000 shares @ $12.23 = $330.21
-                                                                                    100.000%     $330.21
+  Sell up to 30.000 shares @ $127.27 until 2022-12-31
+  Premium of $13.43/share $402.90 total
+  Share Price: $130.00
+  Short Put Value: 30.000 shares @
+     ($130.00 - $127.27 - $13.43 = $321.00)
+                                                                                    100.000%     $321.00
 
 MYS   Mystery Inc.   Option   MYS   (Put)
-  Sell up to 37.000 shares @ $98.76 until 2022-12-31
-  Premium of $3.99/share $147.63 total
-  Share Price: $125.00
-  Short Put Value: 37.000 shares @
-     ($125.00 - $98.76 - $3.99 = $-823.25)
-                                                                                   -100.000%     $-823.25
+  Sell up to 32.000 shares @ $98.72 until 2022-12-31
+  Premium of $3.94/share $126.08 total
+  Share Price: $130.00
+  Short Put Value: 32.000 shares @
+     ($130.00 - $98.72 - $3.94 = $-874.88)
+                                                                                   -100.000%     $-874.88
 
 MYS   Mystery Inc.   Option   MYS   (Put)
-  Sell up to 29.000 shares @ $124.25 until 2022-12-31
-  Premium of $4.73/share $137.17 total
-  Share Price: $125.00
-  Short Put Value: 29.000 shares @
-     ($125.00 - $124.25 - $4.73 = $115.42)
-                                                                                    100.000%     $115.42
+  Sell up to 30.000 shares @ $125.25 until 2022-12-31
+  Premium of $4.77/share $143.10 total
+  Share Price: $130.00
+  Short Put Value: 30.000 shares @
+     ($130.00 - $125.25 - $4.77 = $0.60)
+                                                                                    100.000%     $0.60
 
 MYS   Mystery Inc.   Option   MYS   (Put)
-  Sell up to 10.000 shares @ $124.00 until 2022-12-31
-  Premium of $1.00/share $10.00 total
-  Share Price: $125.00
-  Short Put Value: 10.000 shares @
-     ($125.00 - $124.00 - $1.00 = $0.00)
-                                                                                      0.000%     $0.00
+  Sell up to 9.000 shares @ $124.00 until 2022-12-31
+  Premium of $2.00/share $18.00 total
+  Share Price: $130.00
+  Short Put Value: 9.000 shares @
+     ($130.00 - $124.00 - $2.00 = $-36.00)
+                                                                                   -100.000%     $-36.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $   1500.42
-Cost Basis:          $   1452.82
+Total Value:         $   1791.52
+Cost Basis:          $   1555.60
 Total Account Fees:  $      0.00
-Total Return:        $     47.60
-Total Return %:             3.28%
+Total Return:        $    235.92
+Total Return %:            15.17%
+
