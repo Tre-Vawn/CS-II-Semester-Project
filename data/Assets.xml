@@ -1,0 +1,93 @@
+<assets>
+<property>
+  <code>PA001</code>
+  <label>Park Palace</label>
+  <currentAppraisedValue>400000.0</currentAppraisedValue>
+</property>
+<property>
+  <code>PA002</code>
+  <label>Playstation 8</label>
+  <currentAppraisedValue>700.0</currentAppraisedValue>
+</property>
+<property>
+  <code>PA003</code>
+  <label>First Edition Charizard</label>
+  <currentAppraisedValue>1.2E8</currentAppraisedValue>
+</property>
+<property>
+  <code>PA004</code>
+  <label>2005 Honda CR-V</label>
+  <currentAppraisedValue>2500.0</currentAppraisedValue>
+</property>
+<property>
+  <code>PA005</code>
+  <label>2022 Tesla Roadster</label>
+  <currentAppraisedValue>680000.0</currentAppraisedValue>
+</property>
+<stock>
+  <code>BING001</code>
+  <label>Bing Inc.</label>
+  <symbol>BING</symbol>
+  <currentSharePrice>2.0</currentSharePrice>
+</stock>
+<stock>
+  <code>123SAM</code>
+  <label>Samsung</label>
+  <symbol>SAMS</symbol>
+  <currentSharePrice>5.0</currentSharePrice>
+</stock>
+<stock>
+  <code>ETMRCHKN</code>
+  <label>Chick-fil-a</label>
+  <symbol>CFA</symbol>
+  <currentSharePrice>5046.7</currentSharePrice>
+</stock>
+<stock>
+  <code>B0oWM</code>
+  <label>Costco</label>
+  <symbol>COST</symbol>
+  <currentSharePrice>105.13</currentSharePrice>
+</stock>
+<stock>
+  <code>N0TPIX</code>
+  <label>3D Systems</label>
+  <symbol>DDD</symbol>
+  <currentSharePrice>35.4</currentSharePrice>
+</stock>
+<cryptocurrency>
+  <code>TRE003</code>
+  <label>Trecoin</label>
+  <currentExchangeRate>68694.5</currentExchangeRate>
+  <exchangeFeeRate>1.78</exchangeFeeRate>
+</cryptocurrency>
+<cryptocurrency>
+  <code>BARK</code>
+  <label>Dogecoin</label>
+  <currentExchangeRate>1.2988</currentExchangeRate>
+  <exchangeFeeRate>2.76</exchangeFeeRate>
+</cryptocurrency>
+<cryptocurrency>
+  <code>EIF101</code>
+  <label>Ethereum</label>
+  <currentExchangeRate>4345.83</currentExchangeRate>
+  <exchangeFeeRate>1.7</exchangeFeeRate>
+</cryptocurrency>
+<cryptocurrency>
+  <code>SC1000</code>
+  <label>StupidCoin 1k</label>
+  <currentExchangeRate>1.01</currentExchangeRate>
+  <exchangeFeeRate>8.5</exchangeFeeRate>
+</cryptocurrency>
+<cryptocurrency>
+  <code>SPICY</code>
+  <label>Flow</label>
+  <currentExchangeRate>17.85</currentExchangeRate>
+  <exchangeFeeRate>10.5</exchangeFeeRate>
+</cryptocurrency>
+<stock>
+  <code>MYS</code>
+  <label>Mystery Inc.</label>
+  <symbol>MYS</symbol>
+  <currentSharePrice>130.0</currentSharePrice>
+</stock>
+</assets>

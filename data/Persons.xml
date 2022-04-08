@@ -1,0 +1,173 @@
+<persons>
+<person>
+  <code>944c</code>
+  <name>
+    <lastName>Castro</lastName>
+    <firstName>Sam</firstName>
+  </name>
+  <address>
+    <street>1060 O Street</street>
+    <city>Chicago</city>
+    <state>IL</state>
+    <zip>60613</zip>
+    <country>USA</country>
+  </address>
+  <emails>
+    <email>scastro@cubs.com</email>
+    <email>sam_castro13@gmail.com</email>
+  </emails>
+</person>
+<person>
+  <code>306a</code>
+  <name>
+    <lastName>Sampson</lastName>
+    <firstName>Rocky</firstName>
+  </name>
+  <address>
+    <street>123 N 1st Street</street>
+    <city>Omaha</city>
+    <state>NE</state>
+    <zip>68116</zip>
+    <country>USA</country>
+  </address>
+  <emails>
+    <email>rock_f_sampson@gmail.com</email>
+    <email>rampson@venture.com</email>
+  </emails>
+</person>
+<person>
+  <code>2342</code>
+  <name>
+    <lastName>Morales</lastName>
+    <firstName>Miles</firstName>
+  </name>
+  <address>
+    <street>123 Mean Street</street>
+    <city>Ottawa</city>
+    <state>ON</state>
+    <zip>K1A 0G9</zip>
+    <country>Canada</country>
+  </address>
+  <emails/>
+</person>
+<person>
+  <code>F11n</code>
+  <name>
+    <lastName>Wood</lastName>
+    <firstName>Ethan</firstName>
+  </name>
+  <address>
+    <street>123 Tree House</street>
+    <city>Nebraska City</city>
+    <state>NE</state>
+    <zip>68116</zip>
+    <country>USA</country>
+  </address>
+  <emails>
+    <email>finn@atime.com</email>
+  </emails>
+</person>
+<person>
+  <code>ma12</code>
+  <name>
+    <lastName>Sveum</lastName>
+    <firstName>Gale</firstName>
+  </name>
+  <address>
+    <street>1060 West Apple Street</street>
+    <city>Chicago</city>
+    <state>IL</state>
+    <zip>60613</zip>
+    <country>USA</country>
+  </address>
+  <emails>
+    <email>sveum@cubs.com</email>
+  </emails>
+</person>
+<person>
+  <code>321nd</code>
+  <name>
+    <lastName>Cartnell</lastName>
+    <firstName>Billiam</firstName>
+  </name>
+  <address>
+    <street>1060 West Apple Street</street>
+    <city>Chicago</city>
+    <state>IL</state>
+    <zip>60613</zip>
+    <country>USA</country>
+  </address>
+  <emails>
+    <email>bcartnell@doctors.com</email>
+    <email>dr@who.com</email>
+  </emails>
+</person>
+<person>
+  <code>nf32a</code>
+  <name>
+    <lastName>Rainey</lastName>
+    <firstName>Tre-Vawn</firstName>
+  </name>
+  <address>
+    <street>1060 West Apple Street</street>
+    <city>Chicago</city>
+    <state>IL</state>
+    <zip>60613</zip>
+    <country>USA</country>
+  </address>
+  <emails>
+    <email>trainey3@huskers.unl.edu</email>
+    <email>ptrou32@unl.edu</email>
+  </emails>
+</person>
+<person>
+  <code>321na</code>
+  <name>
+    <lastName>Rahe</lastName>
+    <firstName>Michael</firstName>
+  </name>
+  <address>
+    <street>301 Back St W</street>
+    <city>Toronto</city>
+    <state>ON</state>
+    <zip>M5V 2T6</zip>
+    <country>Canada</country>
+  </address>
+  <emails>
+    <email>mrahe@whofan.com</email>
+  </emails>
+</person>
+<person>
+  <code>aef1b</code>
+  <name>
+    <lastName>Bopp</lastName>
+    <firstName>Logan</firstName>
+  </name>
+  <address>
+    <street>1 Wall Street</street>
+    <city>New York</city>
+    <state>NY</state>
+    <zip>10005-0012</zip>
+    <country>USA</country>
+  </address>
+  <emails/>
+</person>
+<person>
+  <code>321fx</code>
+  <name>
+    <lastName>Bourke</lastName>
+    <firstName>Chris</firstName>
+  </name>
+  <address>
+    <street>1144 T St</street>
+    <city>Lincoln</city>
+    <state>NE</state>
+    <zip>68588</zip>
+    <country>USA</country>
+  </address>
+  <emails>
+    <email>bfox@gmail.com</email>
+    <email>cbourke@crazy.net</email>
+  </emails>
+</person>
+</persons>
