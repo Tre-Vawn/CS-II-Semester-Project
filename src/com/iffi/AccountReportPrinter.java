@@ -53,13 +53,17 @@ public final class AccountReportPrinter {
 			System.out.println("|  Owner  |");
 			System.out.println("+---------+");
 			System.out.println(a.getOwner().getName());
-			a.getOwner().printEmails();
+			if(a.getOwner().getEmails() != null) {
+				a.getOwner().printEmails();
+			}
 			System.out.println(a.getOwner().getAddress());
 			System.out.println("+-----------+");
 			System.out.println("|  Manager  |");
 			System.out.println("+-----------+");
 			System.out.println(a.getManager().getName());
-			a.getManager().printEmails();
+			if(a.getManager().getEmails() != null) {
+				a.getManager().printEmails();
+			}
 			System.out.println(a.getManager().getAddress());
 			System.out.println("+---------------+");
 			System.out.println("|  Beneficiary  |");

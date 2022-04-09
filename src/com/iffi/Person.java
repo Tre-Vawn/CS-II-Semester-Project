@@ -13,7 +13,7 @@ public final class Person {
 	private final String code;
 	private final Name name;
 	private final Address address;
-	private final List<String> emails;
+	private final ArrayList<String> emails;
 
 	private Integer personId;
 
@@ -42,6 +42,10 @@ public final class Person {
 
 	protected final Address getAddress() {
 		return this.address;
+	}
+	
+	protected final ArrayList<String> getEmails() {
+		return this.emails;
 	}
 
 	@SuppressWarnings("unused")
