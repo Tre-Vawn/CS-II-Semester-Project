@@ -86,6 +86,6 @@ public final class Person {
 	}
 
 	public final String toString() {
-		return this.code + this.name.toString() + this.address.toString();
+		return this.code + " " + this.name.toString() + " " + this.address.toString();
 	}
 }

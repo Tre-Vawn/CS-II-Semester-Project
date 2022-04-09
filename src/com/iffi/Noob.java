@@ -1,5 +1,7 @@
 package com.iffi;
 
+import java.util.ArrayList;
+
 /**
  * A class representing the different attributes that a noob account has.
  * 
@@ -26,5 +28,10 @@ public final class Noob extends Account {
 			}
 		}
 		return fees;
+	}
+
+	@Override
+	protected void addAsset(Asset a) {
+		getAssetList().add(a);
 	}
 }

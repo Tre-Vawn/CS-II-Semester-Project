@@ -16,7 +16,11 @@ public final class DatabaseAccountReport {
 		ArrayList<Person> people = DatabaseLoader.loadPersonTable();
 		ArrayList<Asset> assets = DatabaseLoader.loadAssetTable();
 		ArrayList<Account> accounts = DatabaseLoader.loadAccountTable();
-
+		
+		for(Account a : accounts) {
+			System.out.println(a);
+		}
+		
 		AccountReportPrinter.printAccountReport(accounts);
 	}
 }
