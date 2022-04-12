@@ -81,9 +81,15 @@ public final class Person {
 	}
 
 	protected final void printEmails() {
+		int count = 0;
 		System.out.print("[");
 		for (String email : this.emails) {
-			System.out.print(email + " ");
+			if(count == this.emails.size() - 1) {
+				System.out.print(email);
+			} else {
+				System.out.print(email + ", ");
+			}
+			count++;
 		}
 		System.out.println("]");
 		return;

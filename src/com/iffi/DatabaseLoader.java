@@ -140,7 +140,9 @@ public final class DatabaseLoader {
 			ps.setInt(1, personId);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				p.addEmail(rs.getString("email"));
+				if(rs.getString("email") != null) {
+					p.addEmail(rs.getString("email"));
+				}
 			}
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot get data.");

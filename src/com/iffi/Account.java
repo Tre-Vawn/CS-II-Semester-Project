@@ -91,6 +91,13 @@ public abstract class Account {
 		for (Asset a : this.getAssetList()) {
 			count += a.getPurchasedPrice();
 		}
+		if(count == 0.0) {
+			if(this.getTotalValue() > 0.0) {
+				return 100.0;
+			} else {
+				return -100.0;
+			}
+		}
 		return (totalGain / count) * 100.0;
 	}
 
