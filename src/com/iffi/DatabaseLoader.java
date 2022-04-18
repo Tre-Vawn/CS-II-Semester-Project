@@ -114,66 +114,6 @@ public final class DatabaseLoader {
 	}
 
 	/**
-	 * Loads in the data from the asset table and adds the created asset objects to
-	 * the returned array list of assets.
-	 * 
-	 * @return
-	 */
-	protected static final ArrayList<Asset> loadAssetTable() {
-		ArrayList<Asset> assets = new ArrayList<Asset>();
-		Asset a = null;
-
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
-		} catch (SQLException e) {
-			System.err.println("SQLException: Connection failed.");
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
-		String assetQuery = "select assetId, assetCode, assetType, label, currentAppraisedValue, currentExchangeRate, exchangeRateFee, symbol, currentSharePrice from Asset";
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			ps = conn.prepareStatement(assetQuery);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				int assetId = rs.getInt("assetId");
-				String assetCode = rs.getString("assetCode");
-				String assetType = rs.getString("assetType");
-				String label = rs.getString("label");
-				if (assetType.equals("P")) {
-					double currentAppraisedValue = rs.getDouble("currentAppraisedValue");
-					a = new Property(assetCode, label, currentAppraisedValue);
-				} else if (assetType.equals("C")) {
-					double currentExchangeRate = rs.getDouble("currentExchangeRate");
-					double exchangeFeeRate = rs.getDouble("exchangeRateFee");
-					a = new Cryptocurrency(assetCode, label, currentExchangeRate, exchangeFeeRate);
-				} else if (assetType.equals("S")) {
-					String symbol = rs.getString("symbol");
-					double currentSharePrice = rs.getDouble("currentSharePrice");
-					a = new Stock(assetCode, label, symbol, currentSharePrice);
-				}
-				assets.add(a);
-			}
-		} catch (SQLException e) {
-			System.err.println("SQLException: Cannot get data.");
-			throw new RuntimeException(e);
-		}
-		try {
-			rs.close();
-			ps.close();
-			conn.close();
-		} catch (SQLException e) {
-			System.err.println("SQLException: Cannot close for some reason.");
-			throw new RuntimeException(e);
-		}
-		return assets;
-	}
-
-	/**
 	 * Creates and returns a person object from the database data by the person id.
 	 * 
 	 * @param personId
@@ -230,7 +170,6 @@ public final class DatabaseLoader {
 	 */
 	private static final ArrayList<Asset> getAccountAssetsByAccountId(int accountId) {
 		ArrayList<Asset> accountAssetList = new ArrayList<Asset>();
-		//ArrayList<Asset> assetList = loadAssetTable();
 		Asset a = null;
 
 		Connection conn = null;
@@ -242,8 +181,10 @@ public final class DatabaseLoader {
 			throw new RuntimeException(e);
 		}
 
-		String accountAssetQuery = "select a1.assetId, a1.assetCode, a1.assetType, a1.label, a1.currentAppraisedValue, a1.currentExchangeRate, a1.exchangeRateFee, a1.symbol, a1.currentSharePrice, a.purchasedDate,"
-				 + "a.purchasedPrice," + "a.purchasedExchangeRate, a.numCoins,"
+		String accountAssetQuery = "select a1.assetId, a1.assetCode, a1.assetType, a1.label,"
+				+ "a1.currentAppraisedValue, " + "a1.currentExchangeRate, a1.exchangeRateFee, "
+				+ "a1.symbol, a1.currentSharePrice, " + "a.purchasedDate," + "a.purchasedPrice,"
+				+ "a.purchasedExchangeRate, a.numCoins,"
 				+ "a.purchasedSharePrice, a.numShares, a.dividendTotal, a.optionType,"
 				+ "a.strikePrice, a.shareLimit, a.premium, a.strikeDate,"
 				+ "a.accountId, a.assetId from AccountAsset a join Asset a1 on a.assetId = a1.assetId where accountId = ?;";
@@ -255,72 +196,52 @@ public final class DatabaseLoader {
 			psAccountAsset.setInt(1, accountId);
 			rsAccountAsset = psAccountAsset.executeQuery();
 			while (rsAccountAsset.next()) {
-
 				int assetId = rsAccountAsset.getInt("assetId");
 				String assetCode = rsAccountAsset.getString("assetCode");
 				String assetType = rsAccountAsset.getString("assetType");
 				String label = rsAccountAsset.getString("label");
-				double purchasedPrice = 0.0;
-
-				double purchasedExchangeRate = 0.0;
-				double numCoins = 0.0;
-
-				double purchasedSharePrice = 0.0;
-				double numShares = 0.0;
-				double dividendTotal = 0.0;
-
-				String optionType = null;
-				double strikePrice = 0.0;
-				double shareLimit = 0.0;
-				double premium = 0.0;
 
 				LocalDate purchasedDate = LocalDate.parse(rsAccountAsset.getString("purchasedDate"));
 
 				if (assetType.equals("P")) {
 					double currentAppraisedValue = rsAccountAsset.getDouble("currentAppraisedValue");
 					a = new Property(assetCode, label, currentAppraisedValue);
-					purchasedPrice = rsAccountAsset.getDouble("purchasedPrice");
+					double purchasedPrice = rsAccountAsset.getDouble("purchasedPrice");
 					a = new Property(assetId, ((Property) a), purchasedDate, purchasedPrice);
 					accountAssetList.add(a);
-					//break;
 				} else if (assetType.equals("C")) {
 					double currentExchangeRate = rsAccountAsset.getDouble("currentExchangeRate");
 					double exchangeFeeRate = rsAccountAsset.getDouble("exchangeRateFee");
 					a = new Cryptocurrency(assetCode, label, currentExchangeRate, exchangeFeeRate);
-					purchasedExchangeRate = rsAccountAsset.getDouble("purchasedExchangeRate");
-					numCoins = rsAccountAsset.getDouble("numCoins");
+					double purchasedExchangeRate = rsAccountAsset.getDouble("purchasedExchangeRate");
+					double numCoins = rsAccountAsset.getDouble("numCoins");
 					a = new Cryptocurrency(assetId, ((Cryptocurrency) a), purchasedDate, purchasedExchangeRate,
 							numCoins);
 					accountAssetList.add(a);
-					//break;
 				} else if (assetType.equals("S")) {
 					String symbol = rsAccountAsset.getString("symbol");
 					double currentSharePrice = rsAccountAsset.getDouble("currentSharePrice");
 					a = new Stock(assetCode, label, symbol, currentSharePrice);
-					purchasedSharePrice = rsAccountAsset.getDouble("purchasedSharePrice");
-					numShares = rsAccountAsset.getDouble("numShares");
-					dividendTotal = rsAccountAsset.getDouble("dividendTotal");
-					optionType = rsAccountAsset.getString("optionType");
-
+					double purchasedSharePrice = rsAccountAsset.getDouble("purchasedSharePrice");
+					double numShares = rsAccountAsset.getDouble("numShares");
+					double dividendTotal = rsAccountAsset.getDouble("dividendTotal");
+					String optionType = rsAccountAsset.getString("optionType");
 					a = new Stock(((Stock) a), purchasedDate);
 					if (optionType.equals("S")) {
 						Stock s = new Stock(assetId, ((Stock) a), purchasedSharePrice, numShares, dividendTotal);
 						accountAssetList.add(s);
-					//	break;
 					} else if (optionType.equals("C") || optionType.equals("P")) {
-						strikePrice = rsAccountAsset.getDouble("strikePrice");
-						shareLimit = rsAccountAsset.getDouble("shareLimit");
-						premium = rsAccountAsset.getDouble("premium");
+						double strikePrice = rsAccountAsset.getDouble("strikePrice");
+						double shareLimit = rsAccountAsset.getDouble("shareLimit");
+						double premium = rsAccountAsset.getDouble("premium");
 						LocalDate strikeDate = LocalDate.parse(rsAccountAsset.getString("strikeDate"));
 						StockOption so = new StockOption((Stock) a, strikePrice, shareLimit, premium, strikeDate);
 						if (optionType.equals("C")) {
 							Call c = new Call(assetId, so);
 							accountAssetList.add(c);
-						//	break;
 						} else if (optionType.equals("P")) {
 							Put p = new Put(assetId, so);
 							accountAssetList.add(p);
-						//	break;
 						}
 					}
 				}
