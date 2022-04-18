@@ -26,14 +26,10 @@ public final class Property extends Asset {
 		this.purchasedDate = purchasedDate;
 		this.purchasedPrice = purchasedPrice;
 	}
-
-	protected Property(Integer assetId, String code, String label, double currentAppraisedValue) {
-		super(assetId, code, label);
-		this.currentAppraisedValue = currentAppraisedValue;
-	}
 	
 	protected Property(Integer assetId, Property p, LocalDate purchasedDate, double purchasedPrice) {
-		this(p.assetId, p.getCode(), p.getLabel(), p.getCurrentAppraisedValue());
+		this(p.getCode(), p.getLabel(), p.getCurrentAppraisedValue());
+		this.assetId = assetId;
 		this.purchasedDate = purchasedDate;
 		this.purchasedPrice = purchasedPrice;
 	}

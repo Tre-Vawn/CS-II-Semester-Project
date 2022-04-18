@@ -32,6 +32,7 @@ public abstract class Account {
 		this.manager = manager;
 		this.beneficiary = beneficiary;
 		this.accountId = accountId;
+		this.assetList = new ArrayList<Asset>();
 	}
 
 	protected final String getAccountCode() {
@@ -64,9 +65,7 @@ public abstract class Account {
 	 * 
 	 * @param a
 	 */
-	protected final void addAsset(Asset a) {
-		this.assetList.add(a);
-	}
+	protected abstract void addAsset(Asset a);
 
 	/**
 	 * A method to get the total return for an account.
@@ -92,6 +91,13 @@ public abstract class Account {
 		for (Asset a : this.getAssetList()) {
 			count += a.getPurchasedPrice();
 		}
+		if(count == 0.0) {
+			if(this.getTotalValue() > 0.0) {
+				return 100.0;
+			} else {
+				return -100.0;
+			}
+		}
 		return (totalGain / count) * 100.0;
 	}
 
@@ -101,11 +107,24 @@ public abstract class Account {
 	 * @return
 	 */
 	protected final double getTotalValue() {
-		double count = 0.0;
+		double totalValue = 0.0;
 		for (Asset a : this.getAssetList()) {
-			count += a.getValue();
+			totalValue += a.getValue();
 		}
-		return count;
+		return totalValue;
+	}
+	
+	/**
+	 * A method to get the total cost basis for an account.
+	 * 
+	 * @return
+	 */
+	protected final double getTotalCostBasis() {
+		double totalCostBasis = 0.0;
+		for (Asset a : this.getAssetList()) {
+			totalCostBasis += a.getPurchasedPrice();
+		}
+		return totalCostBasis;
 	}
 
 	/**
@@ -115,9 +134,13 @@ public abstract class Account {
 	 * @return
 	 */
 	protected abstract double getFees();
-
+	
 	public final String toString() {
+		if(this.getBeneficiary() != null) {
+			return this.accountCode + " " + this.owner.getCode() + " " + this.manager.getCode() + " "
+					+ this.beneficiary.getCode();
+		}
 		return this.accountCode + " " + this.owner.getCode() + " " + this.manager.getCode() + " "
-				+ this.beneficiary.getCode() + " " + this.assetList;
+				+ "----";
 	}
 }

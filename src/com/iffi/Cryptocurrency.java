@@ -32,16 +32,10 @@ public final class Cryptocurrency extends Asset {
 		this.numCoins = numCoins;
 	}
 
-	protected Cryptocurrency(Integer assetId, String code, String label, double currentExchangeRate,
-			double exchangeFeeRate) {
-		super(assetId, code, label);
-		this.currentExchangeRate = currentExchangeRate;
-		this.exchangeFeeRate = exchangeFeeRate;
-	}
-
 	protected Cryptocurrency(Integer assetId, Cryptocurrency c, LocalDate purchasedDate, double purchasedExchangeRate,
 			double numCoins) {
-		this(c.assetId, c.getCode(), c.getLabel(), c.getCurrentExchangeRate(), c.getExchangeFeeRate());
+		this(c.getCode(), c.getLabel(), c.getCurrentExchangeRate(), c.getExchangeFeeRate());
+		this.assetId = assetId;
 		this.purchasedDate = purchasedDate;
 		this.purchasedExchangeRate = purchasedExchangeRate;
 		this.numCoins = numCoins;

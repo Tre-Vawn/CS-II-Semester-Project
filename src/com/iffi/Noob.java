@@ -27,4 +27,9 @@ public final class Noob extends Account {
 		}
 		return fees;
 	}
+
+	@Override
+	protected void addAsset(Asset a) {
+		getAssetList().add(a);
+	}
 }

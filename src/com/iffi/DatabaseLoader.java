@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -16,59 +17,13 @@ import java.util.ArrayList;
 public final class DatabaseLoader {
 
 	/**
-	 * Creates and returns a name object from the database data by the person id.
-	 * 
-	 * @param personId
-	 * @return
-	 */
-	public static final Name getNameByPersonId(int personId) {
-		Name n = null;
-
-		Connection conn = null;
-		try {
-			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
-		} catch (SQLException e) {
-			System.err.println("SQLException: Connection failed.");
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
-		String nameQuery = "select lastName, firstName from Person p where personId = ?;";
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			ps = conn.prepareStatement(nameQuery);
-			ps.setInt(1, personId);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				String lastName = rs.getString("lastName");
-				String firstName = rs.getString("firstName");
-				n = new Name(lastName, firstName);
-			}
-		} catch (SQLException e) {
-			System.err.println("SQLException: Cannot get data.");
-			throw new RuntimeException(e);
-		}
-		try {
-			rs.close();
-			ps.close();
-			conn.close();
-		} catch (SQLException e) {
-			System.err.println("SQLException: Cannot close for some reason.");
-			throw new RuntimeException(e);
-		}
-		return n;
-	}
-
-	/**
 	 * Creates and returns an address object from the database data by the address
 	 * id.
 	 * 
 	 * @param addressId
 	 * @return
 	 */
-	public static final Address getAddressByAddressId(int addressId) {
+	private static final Address getAddressByAddressId(int addressId) {
 		Address a = null;
 
 		Connection conn = null;
@@ -80,7 +35,7 @@ public final class DatabaseLoader {
 			throw new RuntimeException(e);
 		}
 
-		String addressQuery = "select * from Address a where addressId = ?;";
+		String addressQuery = "select addressId, street, city, state, zip, country from Address where addressId = ?;";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -88,7 +43,7 @@ public final class DatabaseLoader {
 			ps = conn.prepareStatement(addressQuery);
 			ps.setInt(1, addressId);
 			rs = ps.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
 				int addressIdFromDatabase = rs.getInt("addressId");
 				String street = rs.getString("street");
 				String city = rs.getString("city");
@@ -113,45 +68,40 @@ public final class DatabaseLoader {
 	}
 
 	/**
-	 * Loads in the data from the person table and adds the created person objects
-	 * to the returned array list of people.
+	 * Creates and returns an array list of emails from the database data by the
+	 * personId. id.
 	 * 
+	 * @param addressId
 	 * @return
 	 */
-	public static final ArrayList<Person> loadPersonTable() {
-		ArrayList<Person> people = new ArrayList<Person>();
-
+	private static final void getPersonEmailsByPersonId(Person p, int personId) {
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
 		} catch (SQLException e) {
-			System.out.println("SQLException: ");
+			System.err.println("SQLException: Connection failed.");
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 
-		String personQuery = "select * from Person;";
+		String emailQuery = "select email from Email where personId = ?;";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
 		try {
-			ps = conn.prepareStatement(personQuery);
+			ps = conn.prepareStatement(emailQuery);
+			ps.setInt(1, personId);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				int personId = rs.getInt("personId");
-				String personCode = rs.getString("personCode");
-				String firstName = rs.getString("firstName");
-				String lastName = rs.getString("lastName");
-				int addressId = rs.getInt("addressId");
-				Name n = getNameByPersonId(personId);
-				Address a = getAddressByAddressId(addressId);
-				Person p = new Person(personId, personCode, n, a);
-				people.add(p);
+				if (rs.getString("email") != null) {
+					p.addEmail(rs.getString("email"));
+				}
 			}
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot get data.");
 			throw new RuntimeException(e);
 		}
+
 		try {
 			rs.close();
 			ps.close();
@@ -160,7 +110,7 @@ public final class DatabaseLoader {
 			System.err.println("SQLException: Cannot close for some reason.");
 			throw new RuntimeException(e);
 		}
-		return people;
+		return;
 	}
 
 	/**
@@ -169,7 +119,7 @@ public final class DatabaseLoader {
 	 * 
 	 * @return
 	 */
-	public static final ArrayList<Asset> loadAssetTable() {
+	protected static final ArrayList<Asset> loadAssetTable() {
 		ArrayList<Asset> assets = new ArrayList<Asset>();
 		Asset a = null;
 
@@ -177,12 +127,12 @@ public final class DatabaseLoader {
 		try {
 			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
 		} catch (SQLException e) {
-			System.out.println("SQLException: ");
+			System.err.println("SQLException: Connection failed.");
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 
-		String assetQuery = "select * from Asset";
+		String assetQuery = "select assetId, assetCode, assetType, label, currentAppraisedValue, currentExchangeRate, exchangeRateFee, symbol, currentSharePrice from Asset";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -192,21 +142,19 @@ public final class DatabaseLoader {
 			while (rs.next()) {
 				int assetId = rs.getInt("assetId");
 				String assetCode = rs.getString("assetCode");
-				String type = rs.getString("assetType");
+				String assetType = rs.getString("assetType");
 				String label = rs.getString("label");
-				if (type == "P") {
+				if (assetType.equals("P")) {
 					double currentAppraisedValue = rs.getDouble("currentAppraisedValue");
-					a = new Property(assetId, assetCode, label, currentAppraisedValue);
-				}
-				if (type == "C") {
+					a = new Property(assetCode, label, currentAppraisedValue);
+				} else if (assetType.equals("C")) {
 					double currentExchangeRate = rs.getDouble("currentExchangeRate");
-					double exchangeFeeRate = rs.getDouble("exchangeFeeRate");
-					a = new Cryptocurrency(assetId, assetCode, label, currentExchangeRate, exchangeFeeRate);
-				}
-				if (type == "S") {
+					double exchangeFeeRate = rs.getDouble("exchangeRateFee");
+					a = new Cryptocurrency(assetCode, label, currentExchangeRate, exchangeFeeRate);
+				} else if (assetType.equals("S")) {
 					String symbol = rs.getString("symbol");
 					double currentSharePrice = rs.getDouble("currentSharePrice");
-					a = new Stock(assetId, assetCode, label, symbol, currentSharePrice);
+					a = new Stock(assetCode, label, symbol, currentSharePrice);
 				}
 				assets.add(a);
 			}
@@ -231,7 +179,7 @@ public final class DatabaseLoader {
 	 * @param personId
 	 * @return
 	 */
-	public static final Person getPersonByPersonId(int personId) {
+	private static final Person getPersonByPersonId(int personId) {
 		Person p = null;
 		Connection conn = null;
 
@@ -243,7 +191,7 @@ public final class DatabaseLoader {
 			throw new RuntimeException(e);
 		}
 
-		String personQuery = "select * from Person a where personId = ?;";
+		String personQuery = "select personId, personCode, lastName, firstName, addressId from Person where personId = ?;";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -257,7 +205,7 @@ public final class DatabaseLoader {
 				String lastName = rs.getString("lastName");
 				String firstName = rs.getString("firstName");
 				Address a = getAddressByAddressId(rs.getInt("addressId"));
-				p = new Person(personIdFromDatabase, personCode, new Name(firstName, lastName), a);
+				p = new Person(personIdFromDatabase, personCode, new Name(lastName, firstName), a);
 			}
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot get data.");
@@ -275,12 +223,132 @@ public final class DatabaseLoader {
 	}
 
 	/**
+	 * Creates and returns an asset list from the database data by the account id.
+	 * 
+	 * @param accountId
+	 * @return
+	 */
+	private static final ArrayList<Asset> getAccountAssetsByAccountId(int accountId) {
+		ArrayList<Asset> accountAssetList = new ArrayList<Asset>();
+		//ArrayList<Asset> assetList = loadAssetTable();
+		Asset a = null;
+
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String accountAssetQuery = "select a1.assetId, a1.assetCode, a1.assetType, a1.label, a1.currentAppraisedValue, a1.currentExchangeRate, a1.exchangeRateFee, a1.symbol, a1.currentSharePrice, a.purchasedDate,"
+				 + "a.purchasedPrice," + "a.purchasedExchangeRate, a.numCoins,"
+				+ "a.purchasedSharePrice, a.numShares, a.dividendTotal, a.optionType,"
+				+ "a.strikePrice, a.shareLimit, a.premium, a.strikeDate,"
+				+ "a.accountId, a.assetId from AccountAsset a join Asset a1 on a.assetId = a1.assetId where accountId = ?;";
+		PreparedStatement psAccountAsset = null;
+		ResultSet rsAccountAsset = null;
+
+		try {
+			psAccountAsset = conn.prepareStatement(accountAssetQuery);
+			psAccountAsset.setInt(1, accountId);
+			rsAccountAsset = psAccountAsset.executeQuery();
+			while (rsAccountAsset.next()) {
+
+				int assetId = rsAccountAsset.getInt("assetId");
+				String assetCode = rsAccountAsset.getString("assetCode");
+				String assetType = rsAccountAsset.getString("assetType");
+				String label = rsAccountAsset.getString("label");
+				double purchasedPrice = 0.0;
+
+				double purchasedExchangeRate = 0.0;
+				double numCoins = 0.0;
+
+				double purchasedSharePrice = 0.0;
+				double numShares = 0.0;
+				double dividendTotal = 0.0;
+
+				String optionType = null;
+				double strikePrice = 0.0;
+				double shareLimit = 0.0;
+				double premium = 0.0;
+
+				LocalDate purchasedDate = LocalDate.parse(rsAccountAsset.getString("purchasedDate"));
+
+				if (assetType.equals("P")) {
+					double currentAppraisedValue = rsAccountAsset.getDouble("currentAppraisedValue");
+					a = new Property(assetCode, label, currentAppraisedValue);
+					purchasedPrice = rsAccountAsset.getDouble("purchasedPrice");
+					a = new Property(assetId, ((Property) a), purchasedDate, purchasedPrice);
+					accountAssetList.add(a);
+					//break;
+				} else if (assetType.equals("C")) {
+					double currentExchangeRate = rsAccountAsset.getDouble("currentExchangeRate");
+					double exchangeFeeRate = rsAccountAsset.getDouble("exchangeRateFee");
+					a = new Cryptocurrency(assetCode, label, currentExchangeRate, exchangeFeeRate);
+					purchasedExchangeRate = rsAccountAsset.getDouble("purchasedExchangeRate");
+					numCoins = rsAccountAsset.getDouble("numCoins");
+					a = new Cryptocurrency(assetId, ((Cryptocurrency) a), purchasedDate, purchasedExchangeRate,
+							numCoins);
+					accountAssetList.add(a);
+					//break;
+				} else if (assetType.equals("S")) {
+					String symbol = rsAccountAsset.getString("symbol");
+					double currentSharePrice = rsAccountAsset.getDouble("currentSharePrice");
+					a = new Stock(assetCode, label, symbol, currentSharePrice);
+					purchasedSharePrice = rsAccountAsset.getDouble("purchasedSharePrice");
+					numShares = rsAccountAsset.getDouble("numShares");
+					dividendTotal = rsAccountAsset.getDouble("dividendTotal");
+					optionType = rsAccountAsset.getString("optionType");
+
+					a = new Stock(((Stock) a), purchasedDate);
+					if (optionType.equals("S")) {
+						Stock s = new Stock(assetId, ((Stock) a), purchasedSharePrice, numShares, dividendTotal);
+						accountAssetList.add(s);
+					//	break;
+					} else if (optionType.equals("C") || optionType.equals("P")) {
+						strikePrice = rsAccountAsset.getDouble("strikePrice");
+						shareLimit = rsAccountAsset.getDouble("shareLimit");
+						premium = rsAccountAsset.getDouble("premium");
+						LocalDate strikeDate = LocalDate.parse(rsAccountAsset.getString("strikeDate"));
+						StockOption so = new StockOption((Stock) a, strikePrice, shareLimit, premium, strikeDate);
+						if (optionType.equals("C")) {
+							Call c = new Call(assetId, so);
+							accountAssetList.add(c);
+						//	break;
+						} else if (optionType.equals("P")) {
+							Put p = new Put(assetId, so);
+							accountAssetList.add(p);
+						//	break;
+						}
+					}
+				}
+			}
+
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot get data.");
+			throw new RuntimeException(e);
+		}
+
+		try {
+			rsAccountAsset.close();
+			psAccountAsset.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return accountAssetList;
+	}
+
+	/**
 	 * Loads in the data from the account table and adds the created account objects
 	 * to the returned array list of accounts.
 	 * 
 	 * @return
 	 */
-	public static final ArrayList<Account> loadAccountTable() {
+	protected static final ArrayList<Account> loadAccountTable() {
 		ArrayList<Account> accounts = new ArrayList<Account>();
 		Account a = null;
 
@@ -288,12 +356,12 @@ public final class DatabaseLoader {
 		try {
 			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
 		} catch (SQLException e) {
-			System.out.println("SQLException: ");
+			System.err.println("SQLException: Connection failed.");
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 
-		String accountQuery = "select * from Account;";
+		String accountQuery = "select accountId, accountCode, accountType, ownerId, managerId, beneficiaryId from Account;";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
@@ -310,11 +378,21 @@ public final class DatabaseLoader {
 				Person owner = getPersonByPersonId(ownerId);
 				Person manager = getPersonByPersonId(managerId);
 				Person beneficiary = getPersonByPersonId(beneficiaryId);
-				if (accountType == "P") {
+				getPersonEmailsByPersonId(owner, ownerId);
+				getPersonEmailsByPersonId(manager, managerId);
+				getPersonEmailsByPersonId(beneficiary, beneficiaryId);
+				ArrayList<Asset> assetList = getAccountAssetsByAccountId(accountId);
+				if (accountType.equals("P")) {
 					a = new Pro(accountId, accountCode, owner, manager, beneficiary);
+					for (Asset a1 : assetList) {
+						a.addAsset(a1);
+					}
 				}
-				if (accountType == "N") {
+				if (accountType.equals("N")) {
 					a = new Noob(accountId, accountCode, owner, manager, beneficiary);
+					for (Asset a1 : assetList) {
+						a.addAsset(a1);
+					}
 				}
 				accounts.add(a);
 			}

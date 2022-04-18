@@ -13,7 +13,7 @@ public final class Person {
 	private final String code;
 	private final Name name;
 	private final Address address;
-	private final List<String> emails;
+	private final ArrayList<String> emails;
 
 	private Integer personId;
 
@@ -42,6 +42,10 @@ public final class Person {
 
 	protected final Address getAddress() {
 		return this.address;
+	}
+	
+	protected final ArrayList<String> getEmails() {
+		return this.emails;
 	}
 
 	@SuppressWarnings("unused")
@@ -77,15 +81,21 @@ public final class Person {
 	}
 
 	protected final void printEmails() {
+		int count = 0;
 		System.out.print("[");
 		for (String email : this.emails) {
-			System.out.print(email + " ");
+			if(count == this.emails.size() - 1) {
+				System.out.print(email);
+			} else {
+				System.out.print(email + ", ");
+			}
+			count++;
 		}
 		System.out.println("]");
 		return;
 	}
 
 	public final String toString() {
-		return this.code + this.name.toString() + this.address.toString();
+		return this.code + " " + this.name.toString() + " " + this.address.toString();
 	}
 }

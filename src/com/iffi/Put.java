@@ -7,12 +7,12 @@ package com.iffi;
  *
  */
 public final class Put extends StockOption {
-	protected Put(StockOption s) {
-		super(s, s.purchasedDate, s.strikePrice, s.shareLimit, s.premium, s.strikeDate);
+	protected Put(StockOption so) {
+		super(so, so.strikePrice, so.shareLimit, so.premium, so.strikeDate);
 	}
 
-	protected Put(Integer assetId, Put p) {
-		this((StockOption) p);
+	protected Put(Integer assetId, StockOption so) {
+		this(so);
 		this.assetId = assetId;
 	}
 	

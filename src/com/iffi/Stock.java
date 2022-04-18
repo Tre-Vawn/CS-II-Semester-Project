@@ -26,29 +26,25 @@ public class Stock extends Asset {
 		this.symbol = symbol;
 		this.currentSharePrice = currentSharePrice;
 	}
-	protected Stock(Asset a, String symbol, double currentSharePrice) {
-		super(a.code, a.label);
-		this.symbol = symbol;
-		this.currentSharePrice = currentSharePrice;
+	
+	protected Stock(Stock s, LocalDate purchasedDate) {
+		this(s.code, s.label, s.symbol, s.currentSharePrice);
+		this.purchasedDate = purchasedDate;
 	}
-	protected Stock(Asset a, LocalDate purchasedDate, double purchasedSharePrice, double numShares,
+
+	protected Stock(Stock s, LocalDate purchasedDate, double purchasedSharePrice, double numShares,
 			double dividendTotal) {
-		this(a.assetId, a.code, a.label, ((Stock) a).getSymbol(), ((Stock) a).getCurrentSharePrice());
+		this(s.code, s.label, s.getSymbol(), s.getCurrentSharePrice());
 		this.purchasedDate = purchasedDate;
 		this.purchasedSharePrice = purchasedSharePrice;
 		this.numShares = numShares;
 		this.dividendTotal = dividendTotal;
 	}
 
-	protected Stock(Integer assetId, String code, String label, String symbol, double currentSharePrice) {
-		super(assetId, code, label);
-		this.symbol = symbol;
-		this.currentSharePrice = currentSharePrice;
-	}
-	
-	protected Stock(Integer assetId, Stock s, LocalDate purchasedDate, double purchasedSharePrice, double numShares, double dividendTotal) {
-		this(s.assetId, s.getCode(), s.getLabel(), s.getSymbol(), s.getCurrentSharePrice());
-		this.purchasedDate = purchasedDate;
+	protected Stock(Integer assetId, Stock s, double purchasedSharePrice, double numShares,
+			double dividendTotal) {
+		this(s, s.getPurchasedDate());
+		this.assetId = assetId;
 		this.purchasedSharePrice = purchasedSharePrice;
 		this.numShares = numShares;
 		this.dividendTotal = dividendTotal;

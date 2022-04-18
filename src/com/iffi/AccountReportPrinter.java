@@ -18,8 +18,8 @@ public final class AccountReportPrinter {
 	public static final void printAccountReport(List<Account> accounts) {
 		System.out.println("Account Summary Report By Owner");
 		System.out.println(
-				"========================================================================================================================");
-		System.out.println("Account\t\tOwner\t\t\tManager\t\t\tFees\t\tReturn\t\tReturn%\t      Value");
+				"=================================================================================================================================");
+		System.out.println("Account\t\tOwner\t\t\tManager\t\t\tFees\t\tReturn\t\t\tReturn%\t      Value");
 		double totalReportFees = 0.0;
 		double totalReportReturn = 0.0;
 		double totalReportValue = 0.0;
@@ -28,19 +28,19 @@ public final class AccountReportPrinter {
 			totalReportReturn += a.getTotalReturn();
 			totalReportValue += a.getTotalValue();
 			System.out.println(
-					String.format("%-16s%-24s%-23s$%-15.2f$%-16.2f%7.3f", a.getAccountCode(), a.getOwner().getName(),
+					String.format("%-16s%-24s%-23s$%-16.2f$%-17.2f%12.3f", a.getAccountCode(), a.getOwner().getName(),
 							a.getManager().getName(), a.getFees(), a.getTotalReturn(), a.getTotalReturnPercent()) + "%"
-							+ String.format("     $%-5.2f", a.getTotalValue()));
+							+ String.format("     $%-13.2f", a.getTotalValue()));
 		}
 
 		System.out.println(
-				"                                                     -------------------------------------------------------------------");
+				"                                                     ----------------------------------------------------------------------------");
 		System.out.println("                                                     Totals    $"
-				+ String.format("%-15.2f", totalReportFees) + "$" + String.format("%-29.2f", totalReportReturn) + "$"
+				+ String.format("%-15.2f", totalReportFees) + "$" + String.format("%-36.2f", totalReportReturn) + "$"
 				+ String.format("%.2f\n", totalReportValue));
 		System.out.println("\nAccount Details");
 		System.out.println(
-				"========================================================================================================================");
+				"=================================================================================================================================");
 		for (Account a : accounts) {
 			System.out.println("======================================");
 			if (a.getClass() == Pro.class) {
@@ -53,20 +53,32 @@ public final class AccountReportPrinter {
 			System.out.println("|  Owner  |");
 			System.out.println("+---------+");
 			System.out.println(a.getOwner().getName());
-			a.getOwner().printEmails();
+			if(!(a.getOwner().getEmails().isEmpty())) {
+				a.getOwner().printEmails();
+			} else {
+				System.out.println("[]");
+			}
 			System.out.println(a.getOwner().getAddress());
 			System.out.println("+-----------+");
 			System.out.println("|  Manager  |");
 			System.out.println("+-----------+");
 			System.out.println(a.getManager().getName());
-			a.getManager().printEmails();
+			if(!(a.getManager().getEmails().isEmpty())) {
+				a.getManager().printEmails();
+			} else {
+				System.out.println("[]");
+			}
 			System.out.println(a.getManager().getAddress());
 			System.out.println("+---------------+");
 			System.out.println("|  Beneficiary  |");
 			System.out.println("+---------------+");
 			if (a.getBeneficiary() != null) {
 				System.out.println(a.getBeneficiary().getName());
-				a.getBeneficiary().printEmails();
+				if(!(a.getBeneficiary().getEmails().isEmpty())) {
+					a.getBeneficiary().printEmails();					
+				} else {
+					System.out.println("[]");
+				}
 				System.out.println(a.getBeneficiary().getAddress());
 			}
 			System.out.println("+----------+");
@@ -78,20 +90,26 @@ public final class AccountReportPrinter {
 			System.out.println("+----------+");
 			System.out.println("|  Totals  |");
 			System.out.println("+----------+");
-			double totalValue = 0.0;
-			double totalCostBasis = 0.0;
-			double totalFees = 0.0;
-			for (Asset a1 : a.getAssetList()) {
-				totalValue += a1.getValue();
-				totalCostBasis += a1.getPurchasedPrice();
-			}
+			double totalValue = a.getTotalValue();
+			double totalCostBasis = a.getTotalCostBasis();
 			System.out.printf("Total Value:         $%10.2f\n", totalValue);
 			System.out.printf("Cost Basis:          $%10.2f\n", totalCostBasis);
 			System.out.printf("Total Account Fees:  $%10.2f\n", a.getFees());
 			System.out.printf("Total Return:        $%10.2f\n", totalValue - totalCostBasis);
-			System.out.println(String.format("Total Return ") + "%"
-					+ String.format(":       %10.2f", (100.0 * (totalValue - totalCostBasis) / totalCostBasis))
-					+ "%\n");
+			
+			if(totalCostBasis != 0.0) {
+				System.out.println(String.format("Total Return ") + "%"
+						+ String.format(":       %10.2f", (100.0 * (totalValue - totalCostBasis) / totalCostBasis))
+						+ "%\n");
+			} else if(totalValue > 0.0) {
+				System.out.println(String.format("Total Return ") + "%"
+						+ String.format(":       %10.2f", 100.0)
+						+ "%\n");
+			}else if(totalValue < 0.0) {
+				System.out.println(String.format("Total Return ") + "%"
+						+ String.format(":       %10.2f", -100.0)
+						+ "%\n");
+			}
 		}
 		return;
 	}

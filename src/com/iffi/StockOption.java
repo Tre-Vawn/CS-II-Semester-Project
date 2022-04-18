@@ -14,18 +14,16 @@ public class StockOption extends Stock {
 	protected final double premium;
 	protected final LocalDate strikeDate;
 
-	protected StockOption(Stock s, LocalDate purchasedDate, double strikePrice, double shareLimit, double premium,
-			LocalDate strikeDate) {
-		super(s, s.symbol, s.currentSharePrice);
-		this.purchasedDate = purchasedDate;
+	protected StockOption(Stock s, double strikePrice, double shareLimit, double premium, LocalDate strikeDate) {
+		super(s, s.getPurchasedDate());
 		this.strikePrice = strikePrice;
 		this.shareLimit = shareLimit;
 		this.premium = premium;
 		this.strikeDate = strikeDate;
 	}
 
-	protected StockOption(Integer assetId, StockOption s) {
-		this(s, s.getPurchasedDate(), s.getStrikePrice(), s.getShareLimit(), s.getPremium(), s.getStrikeDate());
+	protected StockOption(Integer assetId, StockOption so) {
+		this(so, so.getStrikePrice(), so.getShareLimit(), so.getPremium(), so.getStrikeDate());
 		this.assetId = assetId;
 	}
 

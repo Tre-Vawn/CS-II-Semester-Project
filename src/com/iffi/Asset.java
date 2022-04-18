@@ -39,8 +39,7 @@ public abstract class Asset {
 		return this.purchasedDate;
 	}
 
-	@SuppressWarnings("unused")
-	private final Integer getAssetId() {
+	protected final Integer getAssetId() {
 		return this.assetId;
 	}
 

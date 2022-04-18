@@ -1,5 +1,6 @@
 package com.iffi;
 
+
 /**
  * A class representing the different attributes that a pro account has.
  * 
@@ -26,5 +27,10 @@ public final class Pro extends Account {
 			}
 		}
 		return fees * .75;
+	}
+
+	@Override
+	protected void addAsset(Asset a) {
+		this.getAssetList().add(a);
 	}
 }

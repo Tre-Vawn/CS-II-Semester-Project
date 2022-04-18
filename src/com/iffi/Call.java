@@ -8,12 +8,12 @@ package com.iffi;
  */
 public final class Call extends StockOption {
 
-	protected Call(StockOption s) {
-		super(s, s.purchasedDate, s.strikePrice, s.shareLimit, s.premium, s.strikeDate);
+	protected Call(StockOption so) {
+		super(so, so.strikePrice, so.shareLimit, so.premium, so.strikeDate);
 	}
 
-	protected Call(Integer assetId, Call c) {
-		this((StockOption) c);
+	protected Call(Integer assetId, StockOption so) {
+		this(so);
 		this.assetId = assetId;
 	}
 
