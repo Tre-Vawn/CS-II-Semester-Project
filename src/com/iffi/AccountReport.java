@@ -13,8 +13,10 @@ public final class AccountReport {
 
 	public static void main(String[] args) {
 
-		ArrayList<Account> accounts = DatabaseLoader.loadAccountTable();
+	//	ArrayList<Account> accounts = DatabaseLoader.loadAccountTable();
 
-		AccountReportPrinter.printAccountReport(accounts);
+	//	AccountReportPrinter.printAccountReport(accounts);
+		
+		AccountData.clearDatabase();
 	}
 }

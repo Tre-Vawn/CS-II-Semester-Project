@@ -30,70 +30,182 @@ public final class AccountData {
 
 		String dropEmailQuery = "drop table if exists Email;";
 		PreparedStatement psDropEmail = null;
-		ResultSet rsDropEmail = null;
+		int rsDropEmail = 0;
 		
 		String dropAccountAssetQuery = "drop table if exists AccountAsset;";
 		PreparedStatement psDropAccountAsset = null;
-		ResultSet rsDropAccountAsset = null;
+		int rsDropAccountAsset = 0;
 		
 		String dropAccountQuery = "drop table if exists Accoun;";
 		PreparedStatement psDropAccount = null;
-		ResultSet rsDropAccount = null;
+		int rsDropAccount = 0;
 		
 		String dropAssetQuery = "drop table if exists Asset;";
 		PreparedStatement psDropAsset= null;
-		ResultSet rsDropAsset = null;
+		int rsDropAsset = 0;
 		
 		String dropPersonQuery = "drop table if exists Person;";
 		PreparedStatement psDropPerson = null;
-		ResultSet rsDropPerson = null;
+		int rsDropPerson = 0;
 		
 		String dropAddressQuery = "drop table if exists Address;";
 		PreparedStatement psDropAddress = null;
-		ResultSet rsDropAddress = null;
-
+		int rsDropAddress = 0;
+		
+		String createAddressQuery = "create table Address"
+				+ "(addressId int not null primary key auto_increment,"
+				+ "street varchar(255) not null,"
+				+ "city varchar(255) not null,"
+				+ "state varchar(2) not null,"
+				+ "zip varchar(255) not null,"
+				+ "country varchar(255) not null);";
+		PreparedStatement psCreateAddress = null;
+		int rsCreateAddress = 0;
+		
+		String createPersonQuery = "create table Person"
+				+ "(personId int not null primary key auto_increment,"
+				+ "personCode varchar(50) not null unique key,"
+				+ "lastName varchar(255) not null,"
+				+ "firstName varchar(255) not null,"
+				+ "addressId int not null,"
+				+ "foreign key (addressId) references Address(addressId));";
+		PreparedStatement psCreatePerson = null;
+		int rsCreatePerson = 0;
+		
+		String createEmailQuery = "create table Email"
+				+ "    (emailId int not null primary key auto_increment,"
+				+ "    email varchar(255),"
+				+ "    personId int not null,"
+				+ "    foreign key (personId) references Person(personId));";
+		PreparedStatement psCreateEmail = null;
+		int rsCreateEmail = 0;
+		
+		String createAccountQuery = "create table Account"
+				+ "(accountId int not null primary key auto_increment,"
+				+ "accountCode varchar(255) not null unique key,"
+				+ "accountType varchar(1) not null,"
+				+ "ownerId int not null,"
+				+ "managerId int not null,"
+				+ "beneficiaryId int,"
+				+ "foreign key (ownerId) references Person(personId),"
+				+ "foreign key (managerId) references Person(personId),"
+				+ "foreign key (beneficiaryId) references Person(personId));";
+		PreparedStatement psCreateAccount = null;
+		int rsCreateAccount = 0;
+		
+		String createAssetQuery = "create table Asset"
+				+ "(assetId int not null primary key auto_increment,"
+				+ "assetCode varchar(255) not null unique key,"
+				+ "assetType varchar(1) not null,"
+				+ "label varchar(50) not null,"
+				+ "currentAppraisedValue double,"
+				+ "currentExchangeRate double,"
+				+ "exchangeRateFee double,"
+				+ "symbol varchar(50),"
+				+ "currentSharePrice double);";
+		PreparedStatement psCreateAsset = null;
+		int rsCreateAsset = 0;
+		
+		String createAccountAssetQuery = "create table AccountAsset"
+				+ "(accountAssetId int not null primary key auto_increment,"
+				+ "purchasedDate varchar(10) not null,"
+				+ "purchasedPrice double,"
+				+ "purchasedExchangeRate double,"
+				+ "numCoins double,"
+				+ "purchasedSharePrice double,"
+				+ "numShares double,"
+				+ "dividendTotal double,"
+				+ "optionType varchar(1),"
+				+ "strikePrice double,"
+				+ "shareLimit double,"
+				+ "premium double,"
+				+ "strikeDate varchar(10),"
+				+ "accountId int not null,"
+				+ "assetId int not null,"
+				+ "foreign key (accountId) references Account(accountId),"
+				+ "foreign key (assetId) references Asset(assetId),"
+				+ "constraint uniquePair unique index(accountId, assetId));";
+		PreparedStatement psCreateAccountAsset = null;
+		int rsCreateAccountAsset = 0;
+				
 		try {
 			psDropEmail = conn.prepareStatement(dropEmailQuery);
-			rsDropEmail = psDropEmail.executeQuery();
+			rsDropEmail = psDropEmail.executeUpdate();
 			
 			psDropAccountAsset = conn.prepareStatement(dropAccountAssetQuery);
-			rsDropAccountAsset = psDropAccountAsset.executeQuery();
+			rsDropAccountAsset = psDropAccountAsset.executeUpdate();
 			
 			psDropAccount = conn.prepareStatement(dropAccountQuery);
-			rsDropAccount = psDropAccount.executeQuery();
+			rsDropAccount = psDropAccount.executeUpdate();
 			
 			psDropAsset = conn.prepareStatement(dropAssetQuery);
-			rsDropAsset = psDropAsset.executeQuery();
+			rsDropAsset = psDropAsset.executeUpdate();
 			
 			psDropPerson = conn.prepareStatement(dropPersonQuery);
-			rsDropPerson = psDropPerson.executeQuery();
+			rsDropPerson = psDropPerson.executeUpdate();
 			
 			psDropAddress = conn.prepareStatement(dropAddressQuery);
-			rsDropAddress = psDropAddress.executeQuery();
+			rsDropAddress = psDropAddress.executeUpdate();
+			
+			psCreateAddress = conn.prepareStatement(createAddressQuery);
+			rsCreateAddress = psCreateAddress.executeUpdate();
+
+			psCreatePerson = conn.prepareStatement(createPersonQuery);
+			rsCreatePerson = psCreatePerson.executeUpdate();
+			
+			psCreateEmail = conn.prepareStatement(createEmailQuery);
+			rsCreateEmail = psCreateEmail.executeUpdate();
+			
+			psCreateAccount = conn.prepareStatement(createAccountQuery);
+			rsCreateAccount = psCreateAccount.executeUpdate();
+			
+			psCreateAsset = conn.prepareStatement(createAssetQuery);
+			rsCreateAsset = psCreateAsset.executeUpdate();
+			
+			psCreateAccountAsset = conn.prepareStatement(createAccountAssetQuery);
+			rsCreateAccountAsset = psCreateAccountAsset.executeUpdate();
 
 		} catch (SQLException e) {
-			System.err.println("SQLException: Cannot get data.");
+			System.err.println("SQLException: Cannot clear tables.");
 			throw new RuntimeException(e);
 		}
 
 		try {
-			rsDropEmail.close();
+			//rsDropEmail.close();
 			psDropEmail.close();
 			
-			rsDropAccountAsset.close();
+			//rsDropAccountAsset.close();
 			psDropAccountAsset.close();
 			
-			rsDropAccount.close();
+			//rsDropAccount.close();
 			psDropAccount.close();
 			
-			rsDropAsset.close();
+			//rsDropAsset.close();
 			psDropAsset.close();
 			
-			rsDropPerson.close();
+			//rsDropPerson.close();
 			psDropPerson.close();
 			
-			rsDropAddress.close();
+			//rsDropAddress.close();
 			psDropAddress .close();
+			
+			//rsCreateAddress.close();
+			psCreateAddress.close();
+			
+			//rsCreatePerson.close();
+			psCreatePerson.close();
+			
+			//rsCreateEmail.close();
+			psCreateEmail.close();
+			
+			//rsCreateAccount.close();
+			psCreateAccount.close();
+			
+			//rsCreateAsset.close();
+			psCreateAsset.close();
+			
+			//rsCreateAccountAsset.close();
+			psCreateAccountAsset.close();
 			
 			conn.close();
 		} catch (SQLException e) {
