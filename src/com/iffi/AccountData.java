@@ -6,12 +6,12 @@ package com.iffi;
  *
  * @author tre-vawnrainey, ethanwood
  */
-public class AccountData {
+public final class AccountData {
 
 	/**
 	 * Removes all records from all tables in the database.
 	 */
-	public static void clearDatabase() {
+	protected static final void clearDatabase() {
 		// TODO: implement
 	}
 
@@ -27,7 +27,7 @@ public class AccountData {
 	 * @param zip
 	 * @param country
 	 */
-	public static void addPerson(String personCode, String lastName, String firstName, String street, String city,
+	protected static final void addPerson(String personCode, String lastName, String firstName, String street, String city,
 			String state, String zip, String country) {
 		// TODO: implement
 	}
@@ -39,7 +39,7 @@ public class AccountData {
 	 * @param personCode
 	 * @param email
 	 */
-	public static void addEmail(String personCode, String email) {
+	protected static final void addEmail(String personCode, String email) {
 		// TODO: implement
 	}
 
@@ -51,7 +51,7 @@ public class AccountData {
 	 * @param currentExchangeRate
 	 * @param exchangeFeeRate
 	 */
-	public static void addCrypto(String assetCode, String label, double currentExchangeRate, double exchangeFeeRate) {
+	protected static final void addCrypto(String assetCode, String label, double currentExchangeRate, double exchangeFeeRate) {
 		// TODO: implement
 	}
 
@@ -62,7 +62,7 @@ public class AccountData {
 	 * @param label
 	 * @param appraisedValue
 	 */
-	public static void addProperty(String assetCode, String label, double appraisedValue) {
+	protected static final void addProperty(String assetCode, String label, double appraisedValue) {
 		// TODO: implement
 	}
 
@@ -74,7 +74,7 @@ public class AccountData {
 	 * @param symbol
 	 * @param currentSharePrice
 	 */
-	public static void addStock(String assetCode, String label, String symbol, double currentSharePrice) {
+	protected static final void addStock(String assetCode, String label, String symbol, double currentSharePrice) {
 		// TODO: implement
 	}
 
@@ -90,7 +90,7 @@ public class AccountData {
 	 * @param managerCode
 	 * @param beneficiaryCode
 	 */
-	public static void addAccount(String accountNumber, String accountType, String ownerCode, String managerCode,
+	protected static final void addAccount(String accountNumber, String accountType, String ownerCode, String managerCode,
 			String beneficiaryCode) {
 		// TODO: implement
 	}
@@ -106,7 +106,7 @@ public class AccountData {
 	 * @param purchasedExchangeRate
 	 * @param numCoins
 	 */
-	public static void addCryptocurrencyToAccount(String accountNumber, String assetCode, String purchasedDate,
+	protected static final void addCryptocurrencyToAccount(String accountNumber, String assetCode, String purchasedDate,
 			double purchasedExchangeRate, double numCoins) {
 		// TODO: implement
 	}
@@ -121,7 +121,7 @@ public class AccountData {
 	 * @param purchasedDate
 	 * @param purchasedPrice
 	 */
-	public static void addPropertyToAccount(String accountNumber, String assetCode, String purchasedDate,
+	protected static final void addPropertyToAccount(String accountNumber, String assetCode, String purchasedDate,
 			double purchasedPrice) {
 		// TODO: implement
 	}
@@ -138,7 +138,7 @@ public class AccountData {
 	 * @param numShares
 	 * @param dividendTotal
 	 */
-	public static void addStockToAccount(String accountNumber, String assetCode, String purchasedDate,
+	protected static final void addStockToAccount(String accountNumber, String assetCode, String purchasedDate,
 			double purchasedSharePrice, double numShares, double dividendTotal) {
 		// TODO: implement
 	}
@@ -157,7 +157,7 @@ public class AccountData {
 	 * @param premium
 	 * @param strikeDate
 	 */
-	public static void addStockOptionToAccount(String accountNumber, String assetCode, String purchasedDate,
+	protected static final void addStockOptionToAccount(String accountNumber, String assetCode, String purchasedDate,
 			String optionType, double strikePrice, double shareLimit, double premium, String strikeDate) {
 		// TODO: implement
 	}
