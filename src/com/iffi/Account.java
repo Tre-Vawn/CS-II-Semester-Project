@@ -14,6 +14,7 @@ public abstract class Account {
 	private final Person ownerCode;
 	private final Person managerCode;
 	private final Person beneficiaryCode;
+
 	private List<Asset> assetList;
 
 	private Integer accountId;
@@ -26,7 +27,8 @@ public abstract class Account {
 		this.assetList = new ArrayList<Asset>();
 	}
 
-	protected Account(Integer accountId, String accountCode, Person ownerCode, Person managerCode, Person beneficiaryCode) {
+	protected Account(Integer accountId, String accountCode, Person ownerCode, Person managerCode,
+			Person beneficiaryCode) {
 		this.accountCode = accountCode;
 		this.ownerCode = ownerCode;
 		this.managerCode = managerCode;
@@ -91,8 +93,8 @@ public abstract class Account {
 		for (Asset a : this.getAssetList()) {
 			count += a.getPurchasedPrice();
 		}
-		if(count == 0.0) {
-			if(this.getTotalValue() > 0.0) {
+		if (count == 0.0) {
+			if (this.getTotalValue() > 0.0) {
 				return 100.0;
 			} else {
 				return -100.0;
@@ -113,7 +115,7 @@ public abstract class Account {
 		}
 		return totalValue;
 	}
-	
+
 	/**
 	 * A method to get the total cost basis for an account.
 	 * 
@@ -134,11 +136,11 @@ public abstract class Account {
 	 * @return
 	 */
 	protected abstract double getFees();
-	
+
 	public final String toString() {
-		if(this.getBeneficiaryCode() != null) {
-			return this.accountCode + " " + this.ownerCode.getPersonCode() + " " + this.managerCode.getPersonCode() + " "
-					+ this.beneficiaryCode.getPersonCode();
+		if (this.getBeneficiaryCode() != null) {
+			return this.accountCode + " " + this.ownerCode.getPersonCode() + " " + this.managerCode.getPersonCode()
+					+ " " + this.beneficiaryCode.getPersonCode();
 		}
 		return this.accountCode + " " + this.ownerCode.getPersonCode() + " " + this.managerCode.getPersonCode() + " "
 				+ "----";

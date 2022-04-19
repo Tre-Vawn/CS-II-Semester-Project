@@ -1,5 +1,11 @@
 package com.iffi;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * This is a collection of utility methods that define a general API for
  * interacting with the database supporting this application.
@@ -11,8 +17,90 @@ public final class AccountData {
 	/**
 	 * Removes all records from all tables in the database.
 	 */
-	protected static final void clearDatabase() {
-		// TODO: implement
+	public static final void clearDatabase() {
+		// TODO: Check correctness
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String dropEmailQuery = "drop table if exists Email;";
+		PreparedStatement psDropEmail = null;
+		ResultSet rsDropEmail = null;
+		
+		String dropAccountAssetQuery = "drop table if exists AccountAsset;";
+		PreparedStatement psDropAccountAsset = null;
+		ResultSet rsDropAccountAsset = null;
+		
+		String dropAccountQuery = "drop table if exists Accoun;";
+		PreparedStatement psDropAccount = null;
+		ResultSet rsDropAccount = null;
+		
+		String dropAssetQuery = "drop table if exists Asset;";
+		PreparedStatement psDropAsset= null;
+		ResultSet rsDropAsset = null;
+		
+		String dropPersonQuery = "drop table if exists Person;";
+		PreparedStatement psDropPerson = null;
+		ResultSet rsDropPerson = null;
+		
+		String dropAddressQuery = "drop table if exists Address;";
+		PreparedStatement psDropAddress = null;
+		ResultSet rsDropAddress = null;
+
+		try {
+			psDropEmail = conn.prepareStatement(dropEmailQuery);
+			rsDropEmail = psDropEmail.executeQuery();
+			
+			psDropAccountAsset = conn.prepareStatement(dropAccountAssetQuery);
+			rsDropAccountAsset = psDropAccountAsset.executeQuery();
+			
+			psDropAccount = conn.prepareStatement(dropAccountQuery);
+			rsDropAccount = psDropAccount.executeQuery();
+			
+			psDropAsset = conn.prepareStatement(dropAssetQuery);
+			rsDropAsset = psDropAsset.executeQuery();
+			
+			psDropPerson = conn.prepareStatement(dropPersonQuery);
+			rsDropPerson = psDropPerson.executeQuery();
+			
+			psDropAddress = conn.prepareStatement(dropAddressQuery);
+			rsDropAddress = psDropAddress.executeQuery();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot get data.");
+			throw new RuntimeException(e);
+		}
+
+		try {
+			rsDropEmail.close();
+			psDropEmail.close();
+			
+			rsDropAccountAsset.close();
+			psDropAccountAsset.close();
+			
+			rsDropAccount.close();
+			psDropAccount.close();
+			
+			rsDropAsset.close();
+			psDropAsset.close();
+			
+			rsDropPerson.close();
+			psDropPerson.close();
+			
+			rsDropAddress.close();
+			psDropAddress .close();
+			
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 
 	/**
@@ -27,8 +115,8 @@ public final class AccountData {
 	 * @param zip
 	 * @param country
 	 */
-	protected static final void addPerson(String personCode, String lastName, String firstName, String street, String city,
-			String state, String zip, String country) {
+	public static final void addPerson(String personCode, String lastName, String firstName, String street, String city,
+			String state, String zip, String country)  {
 		// TODO: implement
 	}
 
@@ -39,7 +127,7 @@ public final class AccountData {
 	 * @param personCode
 	 * @param email
 	 */
-	protected static final void addEmail(String personCode, String email) {
+	public static final void addEmail(String personCode, String email) {
 		// TODO: implement
 	}
 
@@ -51,7 +139,8 @@ public final class AccountData {
 	 * @param currentExchangeRate
 	 * @param exchangeFeeRate
 	 */
-	protected static final void addCrypto(String assetCode, String label, double currentExchangeRate, double exchangeFeeRate) {
+	public static final void addCrypto(String assetCode, String label, double 
+			currentExchangeRate, double exchangeFeeRate)  {
 		// TODO: implement
 	}
 
@@ -62,7 +151,7 @@ public final class AccountData {
 	 * @param label
 	 * @param appraisedValue
 	 */
-	protected static final void addProperty(String assetCode, String label, double appraisedValue) {
+	public static final void addProperty(String assetCode, String label, double appraisedValue) {
 		// TODO: implement
 	}
 
@@ -74,7 +163,7 @@ public final class AccountData {
 	 * @param symbol
 	 * @param currentSharePrice
 	 */
-	protected static final void addStock(String assetCode, String label, String symbol, double currentSharePrice) {
+	public static final void addStock(String assetCode, String label, String symbol, double currentSharePrice) {
 		// TODO: implement
 	}
 
@@ -90,7 +179,7 @@ public final class AccountData {
 	 * @param managerCode
 	 * @param beneficiaryCode
 	 */
-	protected static final void addAccount(String accountNumber, String accountType, String ownerCode, String managerCode,
+	public static final void addAccount(String accountNumber, String accountType, String ownerCode, String managerCode,
 			String beneficiaryCode) {
 		// TODO: implement
 	}
@@ -106,7 +195,7 @@ public final class AccountData {
 	 * @param purchasedExchangeRate
 	 * @param numCoins
 	 */
-	protected static final void addCryptocurrencyToAccount(String accountNumber, String assetCode, String purchasedDate,
+	public static final void addCryptoToAccount(String accountNumber, String assetCode, String purchasedDate,
 			double purchasedExchangeRate, double numCoins) {
 		// TODO: implement
 	}
@@ -121,7 +210,7 @@ public final class AccountData {
 	 * @param purchasedDate
 	 * @param purchasedPrice
 	 */
-	protected static final void addPropertyToAccount(String accountNumber, String assetCode, String purchasedDate,
+	public static final void addPropertyToAccount(String accountNumber, String assetCode, String purchasedDate,
 			double purchasedPrice) {
 		// TODO: implement
 	}
@@ -138,7 +227,7 @@ public final class AccountData {
 	 * @param numShares
 	 * @param dividendTotal
 	 */
-	protected static final void addStockToAccount(String accountNumber, String assetCode, String purchasedDate,
+	public static final void addStockToAccount(String accountNumber, String assetCode, String purchasedDate,
 			double purchasedSharePrice, double numShares, double dividendTotal) {
 		// TODO: implement
 	}
@@ -152,13 +241,13 @@ public final class AccountData {
 	 * @param assetCode
 	 * @param purchasedDate
 	 * @param optionType
-	 * @param strikePrice
+	 * @param strikeDate
 	 * @param shareLimit
 	 * @param premium
-	 * @param strikeDate
+	 * @param strikePrice
 	 */
-	protected static final void addStockOptionToAccount(String accountNumber, String assetCode, String purchasedDate,
-			String optionType, double strikePrice, double shareLimit, double premium, String strikeDate) {
+	public static final void addStockOptionToAccount(String accountNumber, String assetCode, String purchasedDate,
+			String optionType, String strikeDate, double shareLimit, double premium, double strikePrice) {
 		// TODO: implement
 	}
 }
