@@ -131,7 +131,7 @@ public final class CSVFileLoader {
 					for (Asset a : assets) {
 						if (count <= tokens.length - 1) {
 							found = false;
-							if (tokens[count].equals(a.getCode())) {
+							if (tokens[count].equals(a.getAssetCode())) {
 								if (a.getClass() == Property.class && !found) {
 									found = true;
 									Property p = new Property((Property) a, LocalDate.parse(tokens[count + 1]),

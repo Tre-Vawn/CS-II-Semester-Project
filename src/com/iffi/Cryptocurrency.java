@@ -19,14 +19,14 @@ public final class Cryptocurrency extends Asset {
 	@XStreamOmitField
 	private double numCoins;
 
-	protected Cryptocurrency(String code, String label, double currentExchangeRate, double exchangeFeeRate) {
-		super(code, label);
+	protected Cryptocurrency(String assetCode, String label, double currentExchangeRate, double exchangeFeeRate) {
+		super(assetCode, label);
 		this.currentExchangeRate = currentExchangeRate;
 		this.exchangeFeeRate = exchangeFeeRate;
 	}
 
 	protected Cryptocurrency(Cryptocurrency c, LocalDate purchasedDate, double purchasedExchangeRate, double numCoins) {
-		this(c.getCode(), c.getLabel(), c.getCurrentExchangeRate(), c.getExchangeFeeRate());
+		this(c.getAssetCode(), c.getLabel(), c.getCurrentExchangeRate(), c.getExchangeFeeRate());
 		this.purchasedDate = purchasedDate;
 		this.purchasedExchangeRate = purchasedExchangeRate;
 		this.numCoins = numCoins;
@@ -34,7 +34,7 @@ public final class Cryptocurrency extends Asset {
 
 	protected Cryptocurrency(Integer assetId, Cryptocurrency c, LocalDate purchasedDate, double purchasedExchangeRate,
 			double numCoins) {
-		this(c.getCode(), c.getLabel(), c.getCurrentExchangeRate(), c.getExchangeFeeRate());
+		this(c.getAssetCode(), c.getLabel(), c.getCurrentExchangeRate(), c.getExchangeFeeRate());
 		this.assetId = assetId;
 		this.purchasedDate = purchasedDate;
 		this.purchasedExchangeRate = purchasedExchangeRate;
@@ -70,7 +70,7 @@ public final class Cryptocurrency extends Asset {
 	}
 
 	public final String toString() {
-		return String.format("%s   %s   (Cryptocurrency)\n", this.getCode(), this.getLabel())
+		return String.format("%s   %s   (Cryptocurrency)\n", this.getAssetCode(), this.getLabel())
 				+ String.format("  Cost Basis: %.3f coins @ $%.2f on %s\n", this.getNumCoins(),
 						this.getPurchasedExchangeRate(), this.getPurchasedDate())
 				+ String.format("  Value Basis: %.3f coins @ $%.2f less %.2f", this.getNumCoins(),

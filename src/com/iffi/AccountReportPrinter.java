@@ -28,8 +28,8 @@ public final class AccountReportPrinter {
 			totalReportReturn += a.getTotalReturn();
 			totalReportValue += a.getTotalValue();
 			System.out.println(
-					String.format("%-16s%-24s%-23s$%-16.2f$%-17.2f%12.3f", a.getAccountCode(), a.getOwner().getName(),
-							a.getManager().getName(), a.getFees(), a.getTotalReturn(), a.getTotalReturnPercent()) + "%"
+					String.format("%-16s%-24s%-23s$%-16.2f$%-17.2f%12.3f", a.getAccountCode(), a.getOwnerCode().getName(),
+							a.getManagerCode().getName(), a.getFees(), a.getTotalReturn(), a.getTotalReturnPercent()) + "%"
 							+ String.format("     $%-13.2f", a.getTotalValue()));
 		}
 
@@ -52,34 +52,34 @@ public final class AccountReportPrinter {
 			System.out.println("+---------+");
 			System.out.println("|  Owner  |");
 			System.out.println("+---------+");
-			System.out.println(a.getOwner().getName());
-			if(!(a.getOwner().getEmails().isEmpty())) {
-				a.getOwner().printEmails();
+			System.out.println(a.getOwnerCode().getName());
+			if(!(a.getOwnerCode().getEmails().isEmpty())) {
+				a.getOwnerCode().printEmails();
 			} else {
 				System.out.println("[]");
 			}
-			System.out.println(a.getOwner().getAddress());
+			System.out.println(a.getOwnerCode().getAddress());
 			System.out.println("+-----------+");
 			System.out.println("|  Manager  |");
 			System.out.println("+-----------+");
-			System.out.println(a.getManager().getName());
-			if(!(a.getManager().getEmails().isEmpty())) {
-				a.getManager().printEmails();
+			System.out.println(a.getManagerCode().getName());
+			if(!(a.getManagerCode().getEmails().isEmpty())) {
+				a.getManagerCode().printEmails();
 			} else {
 				System.out.println("[]");
 			}
-			System.out.println(a.getManager().getAddress());
+			System.out.println(a.getManagerCode().getAddress());
 			System.out.println("+---------------+");
 			System.out.println("|  Beneficiary  |");
 			System.out.println("+---------------+");
-			if (a.getBeneficiary() != null) {
-				System.out.println(a.getBeneficiary().getName());
-				if(!(a.getBeneficiary().getEmails().isEmpty())) {
-					a.getBeneficiary().printEmails();					
+			if (a.getBeneficiaryCode() != null) {
+				System.out.println(a.getBeneficiaryCode().getName());
+				if(!(a.getBeneficiaryCode().getEmails().isEmpty())) {
+					a.getBeneficiaryCode().printEmails();					
 				} else {
 					System.out.println("[]");
 				}
-				System.out.println(a.getBeneficiary().getAddress());
+				System.out.println(a.getBeneficiaryCode().getAddress());
 			}
 			System.out.println("+----------+");
 			System.out.println("|  Assets  |");

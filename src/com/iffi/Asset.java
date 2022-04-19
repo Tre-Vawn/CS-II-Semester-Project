@@ -9,26 +9,26 @@ import java.time.LocalDate;
  *
  */
 public abstract class Asset {
-	protected final String code;
+	protected final String assetCode;
 	protected final String label;
 
 	protected LocalDate purchasedDate;
 
 	protected Integer assetId;
 
-	protected Asset(String code, String label) {
-		this.code = code;
+	protected Asset(String assetCode, String label) {
+		this.assetCode = assetCode;
 		this.label = label;
 	}
 
-	protected Asset(Integer assetId, String code, String label) {
+	protected Asset(Integer assetId, String assetCode, String label) {
 		this.assetId = assetId;
-		this.code = code;
+		this.assetCode = assetCode;
 		this.label = label;
 	}
 
-	protected final String getCode() {
-		return this.code;
+	protected final String getAssetCode() {
+		return this.assetCode;
 	}
 
 	protected final String getLabel() {

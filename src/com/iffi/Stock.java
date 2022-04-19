@@ -21,20 +21,20 @@ public class Stock extends Asset {
 	@XStreamOmitField
 	private double dividendTotal;
 
-	protected Stock(String code, String label, String symbol, double currentSharePrice) {
-		super(code, label);
+	protected Stock(String assetCode, String label, String symbol, double currentSharePrice) {
+		super(assetCode, label);
 		this.symbol = symbol;
 		this.currentSharePrice = currentSharePrice;
 	}
 	
 	protected Stock(Stock s, LocalDate purchasedDate) {
-		this(s.code, s.label, s.symbol, s.currentSharePrice);
+		this(s.getAssetCode(), s.getLabel(), s.getSymbol(), s.getCurrentSharePrice());
 		this.purchasedDate = purchasedDate;
 	}
 
 	protected Stock(Stock s, LocalDate purchasedDate, double purchasedSharePrice, double numShares,
 			double dividendTotal) {
-		this(s.code, s.label, s.getSymbol(), s.getCurrentSharePrice());
+		this(s.getAssetCode(), s.getLabel(), s.getSymbol(), s.getCurrentSharePrice());
 		this.purchasedDate = purchasedDate;
 		this.purchasedSharePrice = purchasedSharePrice;
 		this.numShares = numShares;
@@ -83,7 +83,7 @@ public class Stock extends Asset {
 	}
 
 	public String toString() {
-		return String.format("%s   %s   %s  (Stock)\n", this.getCode(), this.getLabel(), this.getSymbol())
+		return String.format("%s   %s   %s  (Stock)\n", this.getAssetCode(), this.getLabel(), this.getSymbol())
 				+ String.format("  Cost Basis: %.3f shares @ $%.2f on %s\n", this.getNumShares(),
 						this.getPurchasedSharePrice(), this.getPurchasedDate())
 				+ String.format("  Value Basis: %.3f shares @ $%.2f\n", this.getNumShares(),

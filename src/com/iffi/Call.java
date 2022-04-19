@@ -42,7 +42,7 @@ public final class Call extends StockOption {
 
 	public final String toString() {
 		if (this.getCurrentSharePrice() > this.getStrikePrice()) {
-			return String.format("%s   %s   Option   %s   (Call)\n", this.getCode(), this.getLabel(), this.getSymbol())
+			return String.format("%s   %s   Option   %s   (Call)\n", this.getAssetCode(), this.getLabel(), this.getSymbol())
 					+ String.format("  Buy up to %.3f shares @ $%.2f until %s\n", this.getShareLimit(),
 							this.getStrikePrice(), this.getStrikeDate())
 					+ String.format("  Premium of $%.2f/share $%.2f total\n", this.getPremium(), this.getPremiumTotal())
@@ -53,7 +53,7 @@ public final class Call extends StockOption {
 					+ String.format(" %90.3f", (this.returnPercent() * 100.0)) + "%"
 					+ String.format("     $%.2f\n", this.getValue());
 		}
-		return String.format("%s   %s   Option   %s   (Call)\n", this.getCode(), this.getLabel(), this.getSymbol())
+		return String.format("%s   %s   Option   %s   (Call)\n", this.getAssetCode(), this.getLabel(), this.getSymbol())
 				+ String.format("  Buy up to %.3f shares @ $%.2f until %s\n", this.getShareLimit(),
 						this.getStrikePrice(), this.getStrikeDate())
 				+ String.format("  Premium of $%.2f/share $%.2f total\n", this.getPremium(), this.getPremiumTotal())
