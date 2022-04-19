@@ -18,7 +18,6 @@ public final class AccountData {
 	 * Removes all records from all tables in the database.
 	 */
 	public static final void clearDatabase() {
-		// TODO: Check correctness
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
@@ -28,142 +27,47 @@ public final class AccountData {
 			throw new RuntimeException(e);
 		}
 
-		String dropEmailQuery = "drop table if exists Email;";
-		PreparedStatement psDropEmail = null;
-		int rsDropEmail = 0;
+		String deleteEmailQuery = "delete from Email;";
+		PreparedStatement psDeleteEmail = null;
+		int rsDeleteEmail = 0;
 		
-		String dropAccountAssetQuery = "drop table if exists AccountAsset;";
-		PreparedStatement psDropAccountAsset = null;
-		int rsDropAccountAsset = 0;
+		String deleteAccountAssetQuery = "delete from AccountAsset;";
+		PreparedStatement psDeleteAccountAsset = null;
+		int rsDeleteAccountAsset = 0;
 		
-		String dropAccountQuery = "drop table if exists Accoun;";
-		PreparedStatement psDropAccount = null;
-		int rsDropAccount = 0;
+		String deleteAccountQuery = "delete from Account;";
+		PreparedStatement psDeleteAccount = null;
+		int rsDeleteAccount = 0;
 		
-		String dropAssetQuery = "drop table if exists Asset;";
-		PreparedStatement psDropAsset= null;
-		int rsDropAsset = 0;
+		String deleteAssetQuery = "delete from Asset;";
+		PreparedStatement psDeleteAsset= null;
+		int rsDeleteAsset = 0;
 		
-		String dropPersonQuery = "drop table if exists Person;";
-		PreparedStatement psDropPerson = null;
-		int rsDropPerson = 0;
+		String deletePersonQuery = "delete from Person;";
+		PreparedStatement psDeletePerson = null;
+		int rsDeletePerson = 0;
 		
-		String dropAddressQuery = "drop table if exists Address;";
-		PreparedStatement psDropAddress = null;
-		int rsDropAddress = 0;
-		
-		String createAddressQuery = "create table Address"
-				+ "(addressId int not null primary key auto_increment,"
-				+ "street varchar(255) not null,"
-				+ "city varchar(255) not null,"
-				+ "state varchar(2) not null,"
-				+ "zip varchar(255) not null,"
-				+ "country varchar(255) not null);";
-		PreparedStatement psCreateAddress = null;
-		int rsCreateAddress = 0;
-		
-		String createPersonQuery = "create table Person"
-				+ "(personId int not null primary key auto_increment,"
-				+ "personCode varchar(50) not null unique key,"
-				+ "lastName varchar(255) not null,"
-				+ "firstName varchar(255) not null,"
-				+ "addressId int not null,"
-				+ "foreign key (addressId) references Address(addressId));";
-		PreparedStatement psCreatePerson = null;
-		int rsCreatePerson = 0;
-		
-		String createEmailQuery = "create table Email"
-				+ "    (emailId int not null primary key auto_increment,"
-				+ "    email varchar(255),"
-				+ "    personId int not null,"
-				+ "    foreign key (personId) references Person(personId));";
-		PreparedStatement psCreateEmail = null;
-		int rsCreateEmail = 0;
-		
-		String createAccountQuery = "create table Account"
-				+ "(accountId int not null primary key auto_increment,"
-				+ "accountCode varchar(255) not null unique key,"
-				+ "accountType varchar(1) not null,"
-				+ "ownerId int not null,"
-				+ "managerId int not null,"
-				+ "beneficiaryId int,"
-				+ "foreign key (ownerId) references Person(personId),"
-				+ "foreign key (managerId) references Person(personId),"
-				+ "foreign key (beneficiaryId) references Person(personId));";
-		PreparedStatement psCreateAccount = null;
-		int rsCreateAccount = 0;
-		
-		String createAssetQuery = "create table Asset"
-				+ "(assetId int not null primary key auto_increment,"
-				+ "assetCode varchar(255) not null unique key,"
-				+ "assetType varchar(1) not null,"
-				+ "label varchar(50) not null,"
-				+ "currentAppraisedValue double,"
-				+ "currentExchangeRate double,"
-				+ "exchangeRateFee double,"
-				+ "symbol varchar(50),"
-				+ "currentSharePrice double);";
-		PreparedStatement psCreateAsset = null;
-		int rsCreateAsset = 0;
-		
-		String createAccountAssetQuery = "create table AccountAsset"
-				+ "(accountAssetId int not null primary key auto_increment,"
-				+ "purchasedDate varchar(10) not null,"
-				+ "purchasedPrice double,"
-				+ "purchasedExchangeRate double,"
-				+ "numCoins double,"
-				+ "purchasedSharePrice double,"
-				+ "numShares double,"
-				+ "dividendTotal double,"
-				+ "optionType varchar(1),"
-				+ "strikePrice double,"
-				+ "shareLimit double,"
-				+ "premium double,"
-				+ "strikeDate varchar(10),"
-				+ "accountId int not null,"
-				+ "assetId int not null,"
-				+ "foreign key (accountId) references Account(accountId),"
-				+ "foreign key (assetId) references Asset(assetId),"
-				+ "constraint uniquePair unique index(accountId, assetId));";
-		PreparedStatement psCreateAccountAsset = null;
-		int rsCreateAccountAsset = 0;
-				
+		String deleteAddressQuery = "delete from Address;";
+		PreparedStatement psDeleteAddress = null;
+		int rsDeleteAddress = 0;
 		try {
-			psDropEmail = conn.prepareStatement(dropEmailQuery);
-			rsDropEmail = psDropEmail.executeUpdate();
+			psDeleteEmail = conn.prepareStatement(deleteEmailQuery);
+			rsDeleteEmail = psDeleteEmail.executeUpdate();
 			
-			psDropAccountAsset = conn.prepareStatement(dropAccountAssetQuery);
-			rsDropAccountAsset = psDropAccountAsset.executeUpdate();
+			psDeleteAccountAsset = conn.prepareStatement(deleteAccountAssetQuery);
+			rsDeleteAccountAsset = psDeleteAccountAsset.executeUpdate();
 			
-			psDropAccount = conn.prepareStatement(dropAccountQuery);
-			rsDropAccount = psDropAccount.executeUpdate();
+			psDeleteAccount = conn.prepareStatement(deleteAccountQuery);
+			rsDeleteAccount = psDeleteAccount.executeUpdate();
 			
-			psDropAsset = conn.prepareStatement(dropAssetQuery);
-			rsDropAsset = psDropAsset.executeUpdate();
+			psDeleteAsset = conn.prepareStatement(deleteAssetQuery);
+			rsDeleteAsset = psDeleteAsset.executeUpdate();
 			
-			psDropPerson = conn.prepareStatement(dropPersonQuery);
-			rsDropPerson = psDropPerson.executeUpdate();
+			psDeletePerson = conn.prepareStatement(deletePersonQuery);
+			rsDeletePerson = psDeletePerson.executeUpdate();
 			
-			psDropAddress = conn.prepareStatement(dropAddressQuery);
-			rsDropAddress = psDropAddress.executeUpdate();
-			
-			psCreateAddress = conn.prepareStatement(createAddressQuery);
-			rsCreateAddress = psCreateAddress.executeUpdate();
-
-			psCreatePerson = conn.prepareStatement(createPersonQuery);
-			rsCreatePerson = psCreatePerson.executeUpdate();
-			
-			psCreateEmail = conn.prepareStatement(createEmailQuery);
-			rsCreateEmail = psCreateEmail.executeUpdate();
-			
-			psCreateAccount = conn.prepareStatement(createAccountQuery);
-			rsCreateAccount = psCreateAccount.executeUpdate();
-			
-			psCreateAsset = conn.prepareStatement(createAssetQuery);
-			rsCreateAsset = psCreateAsset.executeUpdate();
-			
-			psCreateAccountAsset = conn.prepareStatement(createAccountAssetQuery);
-			rsCreateAccountAsset = psCreateAccountAsset.executeUpdate();
+			psDeleteAddress = conn.prepareStatement(deleteAddressQuery);
+			rsDeleteAddress = psDeleteAddress.executeUpdate();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot clear tables.");
@@ -171,42 +75,12 @@ public final class AccountData {
 		}
 
 		try {
-			//rsDropEmail.close();
-			psDropEmail.close();
-			
-			//rsDropAccountAsset.close();
-			psDropAccountAsset.close();
-			
-			//rsDropAccount.close();
-			psDropAccount.close();
-			
-			//rsDropAsset.close();
-			psDropAsset.close();
-			
-			//rsDropPerson.close();
-			psDropPerson.close();
-			
-			//rsDropAddress.close();
-			psDropAddress .close();
-			
-			//rsCreateAddress.close();
-			psCreateAddress.close();
-			
-			//rsCreatePerson.close();
-			psCreatePerson.close();
-			
-			//rsCreateEmail.close();
-			psCreateEmail.close();
-			
-			//rsCreateAccount.close();
-			psCreateAccount.close();
-			
-			//rsCreateAsset.close();
-			psCreateAsset.close();
-			
-			//rsCreateAccountAsset.close();
-			psCreateAccountAsset.close();
-			
+			psDeleteEmail.close();
+			psDeleteAccountAsset.close();
+			psDeleteAccount.close();
+			psDeleteAsset.close();
+			psDeletePerson.close();
+			psDeleteAddress .close();
 			conn.close();
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot close for some reason.");
