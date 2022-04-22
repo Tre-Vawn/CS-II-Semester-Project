@@ -114,8 +114,8 @@ public final class AccountData {
 		}
 		String insertAddressQuery = "insert into Address (street, city, state, zip, country) values (?, ?, ?, ?, ?);";
 		PreparedStatement psInsertAddress = null;
-		ResultSet rsAddressKeys = null;
-		int addressKey = 0;
+		ResultSet rsAddressId = null;
+		int addressId = 0;
 
 		String insertPersonQuery = "insert into Person (personCode, lastName, firstName, addressId) values (?, ?, ?, ?);";
 		PreparedStatement psInsertPerson = null;
@@ -127,16 +127,16 @@ public final class AccountData {
 			psInsertAddress.setString(4, zip);
 			psInsertAddress.setString(5, country);
 			psInsertAddress.executeUpdate();
-			rsAddressKeys = psInsertAddress.getGeneratedKeys();
-			if (rsAddressKeys.next()) {
-				addressKey = rsAddressKeys.getInt(1);
+			rsAddressId = psInsertAddress.getGeneratedKeys();
+			if (rsAddressId.next()) {
+				addressId = rsAddressId.getInt(1);
 			}
 
 			psInsertPerson = conn.prepareStatement(insertPersonQuery);
 			psInsertPerson.setString(1, personCode);
 			psInsertPerson.setString(2, lastName);
 			psInsertPerson.setString(3, firstName);
-			psInsertPerson.setInt(4, addressKey);
+			psInsertPerson.setInt(4, addressId);
 			psInsertPerson.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot add person.");
@@ -145,7 +145,7 @@ public final class AccountData {
 		try {
 			psInsertAddress.close();
 			psInsertPerson.close();
-			rsAddressKeys.close();
+			rsAddressId.close();
 			conn.close();
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot close for some reason.");
@@ -400,13 +400,19 @@ public final class AccountData {
 			}
 			if (rsGetBeneficiaryId.next()) {
 				beneficiaryId = rsGetBeneficiaryId.getInt("personId");
+			} else {
+				beneficiaryId = -1;
 			}
 			psInsertAccount = conn.prepareStatement(insertAccountQuery);
 			psInsertAccount.setString(1, accountCode);
 			psInsertAccount.setString(2, accountType);
 			psInsertAccount.setInt(3, ownerId);
 			psInsertAccount.setInt(4, managerId);
-			psInsertAccount.setInt(5, beneficiaryId);
+			if (beneficiaryId > 0) {
+				psInsertAccount.setInt(5, beneficiaryId);
+			} else {
+				psInsertAccount.setNull(5, java.sql.Types.INTEGER);
+			}
 			psInsertAccount.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot add account.");
