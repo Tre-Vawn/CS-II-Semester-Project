@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * This is a collection of utility methods that define a general API for
@@ -29,45 +30,45 @@ public final class AccountData {
 
 		String deleteEmailQuery = "delete from Email;";
 		PreparedStatement psDeleteEmail = null;
-		int rsDeleteEmail = 0;
-		
+		int DeleteEmail = 0;
+
 		String deleteAccountAssetQuery = "delete from AccountAsset;";
 		PreparedStatement psDeleteAccountAsset = null;
-		int rsDeleteAccountAsset = 0;
-		
+		int DeleteAccountAsset = 0;
+
 		String deleteAccountQuery = "delete from Account;";
 		PreparedStatement psDeleteAccount = null;
-		int rsDeleteAccount = 0;
-		
+		int DeleteAccount = 0;
+
 		String deleteAssetQuery = "delete from Asset;";
-		PreparedStatement psDeleteAsset= null;
-		int rsDeleteAsset = 0;
-		
+		PreparedStatement psDeleteAsset = null;
+		int DeleteAsset = 0;
+
 		String deletePersonQuery = "delete from Person;";
 		PreparedStatement psDeletePerson = null;
-		int rsDeletePerson = 0;
-		
+		int DeletePerson = 0;
+
 		String deleteAddressQuery = "delete from Address;";
 		PreparedStatement psDeleteAddress = null;
-		int rsDeleteAddress = 0;
+		int DeleteAddress = 0;
 		try {
 			psDeleteEmail = conn.prepareStatement(deleteEmailQuery);
-			rsDeleteEmail = psDeleteEmail.executeUpdate();
-			
+			DeleteEmail = psDeleteEmail.executeUpdate();
+
 			psDeleteAccountAsset = conn.prepareStatement(deleteAccountAssetQuery);
-			rsDeleteAccountAsset = psDeleteAccountAsset.executeUpdate();
-			
+			DeleteAccountAsset = psDeleteAccountAsset.executeUpdate();
+
 			psDeleteAccount = conn.prepareStatement(deleteAccountQuery);
-			rsDeleteAccount = psDeleteAccount.executeUpdate();
-			
+			DeleteAccount = psDeleteAccount.executeUpdate();
+
 			psDeleteAsset = conn.prepareStatement(deleteAssetQuery);
-			rsDeleteAsset = psDeleteAsset.executeUpdate();
-			
+			DeleteAsset = psDeleteAsset.executeUpdate();
+
 			psDeletePerson = conn.prepareStatement(deletePersonQuery);
-			rsDeletePerson = psDeletePerson.executeUpdate();
-			
+			DeletePerson = psDeletePerson.executeUpdate();
+
 			psDeleteAddress = conn.prepareStatement(deleteAddressQuery);
-			rsDeleteAddress = psDeleteAddress.executeUpdate();
+			DeleteAddress = psDeleteAddress.executeUpdate();
 
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot clear tables.");
@@ -80,7 +81,7 @@ public final class AccountData {
 			psDeleteAccount.close();
 			psDeleteAsset.close();
 			psDeletePerson.close();
-			psDeleteAddress .close();
+			psDeleteAddress.close();
 			conn.close();
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot close for some reason.");
@@ -102,8 +103,55 @@ public final class AccountData {
 	 * @param country
 	 */
 	public static final void addPerson(String personCode, String lastName, String firstName, String street, String city,
-			String state, String zip, String country)  {
-		// TODO: implement
+			String state, String zip, String country) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		String insertAddressQuery = "insert into Address (street, city, state, zip, country) values (?, ?, ?, ?, ?);";
+		PreparedStatement psInsertAddress = null;
+		ResultSet rsAddressKeys = null;
+		int addressKey = 0;
+
+		String insertPersonQuery = "insert into Person (personCode, lastName, firstName, addressId) values (?, ?, ?, ?);";
+		PreparedStatement psInsertPerson = null;
+		try {
+			psInsertAddress = conn.prepareStatement(insertAddressQuery, Statement.RETURN_GENERATED_KEYS);
+			psInsertAddress.setString(1, street);
+			psInsertAddress.setString(2, city);
+			psInsertAddress.setString(3, state);
+			psInsertAddress.setString(4, zip);
+			psInsertAddress.setString(5, country);
+			psInsertAddress.executeUpdate();
+			rsAddressKeys = psInsertAddress.getGeneratedKeys();
+			if (rsAddressKeys.next()) {
+				addressKey = rsAddressKeys.getInt(1);
+			}
+
+			psInsertPerson = conn.prepareStatement(insertPersonQuery);
+			psInsertPerson.setString(1, personCode);
+			psInsertPerson.setString(2, lastName);
+			psInsertPerson.setString(3, firstName);
+			psInsertPerson.setInt(4, addressKey);
+			psInsertPerson.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add person.");
+			throw new RuntimeException(e);
+		}
+		try {
+			psInsertAddress.close();
+			psInsertPerson.close();
+			rsAddressKeys.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 
 	/**
@@ -114,7 +162,91 @@ public final class AccountData {
 	 * @param email
 	 */
 	public static final void addEmail(String personCode, String email) {
-		// TODO: implement
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		String getPersonIdQuery = "select personId from Person where personCode = ?;";
+		PreparedStatement psGetPersonId = null;
+		ResultSet rsGetPersonId = null;
+		int personId = 0;
+
+		String insertEmailQuery = "insert into Email (email, personId) values (?, ?);";
+		PreparedStatement psInsertEmail = null;
+		try {
+			psGetPersonId = conn.prepareStatement(getPersonIdQuery);
+			psGetPersonId.setString(1, personCode);
+			rsGetPersonId = psGetPersonId.executeQuery();
+			if (rsGetPersonId.next()) {
+				personId = rsGetPersonId.getInt("personId");
+				psInsertEmail = conn.prepareStatement(insertEmailQuery);
+				psInsertEmail.setString(1, email);
+				psInsertEmail.setInt(2, personId);
+				psInsertEmail.executeUpdate();
+			}
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add email.");
+			throw new RuntimeException(e);
+		}
+		try {
+			rsGetPersonId.close();
+			psGetPersonId.close();
+			psInsertEmail.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
+	}
+
+	/**
+	 * Adds a property asset record to the database with the provided data.
+	 *
+	 * @param assetCode
+	 * @param label
+	 * @param currentAppraisedValue
+	 */
+	public static final void addProperty(String assetCode, String label, double currentAppraisedValue) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		String query = "insert into Asset"
+				+ "(assetCode, assetType, label, currentAppraisedValue, currentExchangeRate, exchangeFeeRate, symbol, currentSharePrice)"
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, assetCode);
+			ps.setString(2, "P");
+			ps.setString(3, label);
+			ps.setDouble(4, currentAppraisedValue);
+			ps.setNull(5, java.sql.Types.DOUBLE);
+			ps.setNull(6, java.sql.Types.DOUBLE);
+			ps.setNull(7, java.sql.Types.VARCHAR);
+			ps.setNull(8, java.sql.Types.DOUBLE);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add cryptocurrency.");
+			throw new RuntimeException(e);
+		}
+		try {
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 
 	/**
@@ -125,20 +257,43 @@ public final class AccountData {
 	 * @param currentExchangeRate
 	 * @param exchangeFeeRate
 	 */
-	public static final void addCrypto(String assetCode, String label, double 
-			currentExchangeRate, double exchangeFeeRate)  {
-		// TODO: implement
-	}
-
-	/**
-	 * Adds a property asset record to the database with the provided data.
-	 *
-	 * @param assetCode
-	 * @param label
-	 * @param appraisedValue
-	 */
-	public static final void addProperty(String assetCode, String label, double appraisedValue) {
-		// TODO: implement
+	public static final void addCrypto(String assetCode, String label, double currentExchangeRate,
+			double exchangeFeeRate) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		String query = "insert into Asset"
+				+ "(assetCode, assetType, label, currentAppraisedValue, currentExchangeRate, exchangeFeeRate, symbol, currentSharePrice)"
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, assetCode);
+			ps.setString(2, "C");
+			ps.setString(3, label);
+			ps.setNull(4, java.sql.Types.DOUBLE);
+			ps.setDouble(5, currentExchangeRate);
+			ps.setDouble(6, exchangeFeeRate);
+			ps.setNull(7, java.sql.Types.VARCHAR);
+			ps.setNull(8, java.sql.Types.DOUBLE);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add cryptocurrency.");
+			throw new RuntimeException(e);
+		}
+		try {
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 
 	/**
@@ -150,7 +305,41 @@ public final class AccountData {
 	 * @param currentSharePrice
 	 */
 	public static final void addStock(String assetCode, String label, String symbol, double currentSharePrice) {
-		// TODO: implement
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		String query = "insert into Asset"
+				+ "(assetCode, assetType, label, currentAppraisedValue, currentExchangeRate, exchangeFeeRate, symbol, currentSharePrice)"
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(query);
+			ps.setString(1, assetCode);
+			ps.setString(2, "S");
+			ps.setString(3, label);
+			ps.setNull(4, java.sql.Types.DOUBLE);
+			ps.setNull(5, java.sql.Types.DOUBLE);
+			ps.setNull(6, java.sql.Types.DOUBLE);
+			ps.setString(7, symbol);
+			ps.setDouble(8, currentSharePrice);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add cryptocurrency.");
+			throw new RuntimeException(e);
+		}
+		try {
+			ps.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 
 	/**
@@ -159,52 +348,257 @@ public final class AccountData {
 	 * <code>null</code>. The <code>accountType</code> is expected to be either
 	 * <code>"N"</code> (noob) or <code>"P"</code> (pro).
 	 *
-	 * @param accountNumber
+	 * @param accountCode
 	 * @param accountType
 	 * @param ownerCode
 	 * @param managerCode
 	 * @param beneficiaryCode
 	 */
-	public static final void addAccount(String accountNumber, String accountType, String ownerCode, String managerCode,
+	public static final void addAccount(String accountCode, String accountType, String ownerCode, String managerCode,
 			String beneficiaryCode) {
-		// TODO: implement
-	}
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		String getOwnerIdQuery = "select personId from Person where personCode = ?;";
+		PreparedStatement psGetOwnerId = null;
+		ResultSet rsGetOwnerId = null;
+		int ownerId = 0;
+		String getManagerIdQuery = "select personId from Person where personCode = ?;";
+		PreparedStatement psGetManagerId = null;
+		ResultSet rsGetManagerId = null;
+		int managerId = 0;
+		String getBeneficiaryIdQuery = "select personId from Person where personCode = ?;";
+		PreparedStatement psGetBeneficiaryId = null;
+		ResultSet rsGetBeneficiaryId = null;
+		int beneficiaryId = 0;
 
-	/**
-	 * Adds a cryptocurrency asset corresponding to <code>assetCode</code> (which is
-	 * assumed to already exist in the database) to the account corresponding to the
-	 * provided <code>accountNumber</code>.
-	 *
-	 * @param accountNumber
-	 * @param assetCode
-	 * @param purchasedDate
-	 * @param purchasedExchangeRate
-	 * @param numCoins
-	 */
-	public static final void addCryptoToAccount(String accountNumber, String assetCode, String purchasedDate,
-			double purchasedExchangeRate, double numCoins) {
-		// TODO: implement
+		String insertAccountQuery = "insert into Account"
+				+ "(accountCode, accountType, ownerId, managerId, beneficiaryId) values (?, ?, ?, ?, ?);";
+		PreparedStatement psInsertAccount = null;
+		try {
+			psGetOwnerId = conn.prepareStatement(getOwnerIdQuery);
+			psGetOwnerId.setString(1, ownerCode);
+			rsGetOwnerId = psGetOwnerId.executeQuery();
+
+			psGetManagerId = conn.prepareStatement(getManagerIdQuery);
+			psGetManagerId.setString(1, managerCode);
+			rsGetManagerId = psGetManagerId.executeQuery();
+
+			psGetBeneficiaryId = conn.prepareStatement(getBeneficiaryIdQuery);
+			psGetBeneficiaryId.setString(1, beneficiaryCode);
+			rsGetBeneficiaryId = psGetBeneficiaryId.executeQuery();
+			if (rsGetOwnerId.next()) {
+				ownerId = rsGetOwnerId.getInt("personId");
+			}
+			if (rsGetManagerId.next()) {
+				managerId = rsGetManagerId.getInt("personId");
+			}
+			if (rsGetBeneficiaryId.next()) {
+				beneficiaryId = rsGetBeneficiaryId.getInt("personId");
+			}
+			psInsertAccount = conn.prepareStatement(insertAccountQuery);
+			psInsertAccount.setString(1, accountCode);
+			psInsertAccount.setString(2, accountType);
+			psInsertAccount.setInt(3, ownerId);
+			psInsertAccount.setInt(4, managerId);
+			psInsertAccount.setInt(5, beneficiaryId);
+			psInsertAccount.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add account.");
+			throw new RuntimeException(e);
+		}
+		try {
+			rsGetOwnerId.close();
+			psGetOwnerId.close();
+			rsGetManagerId.close();
+			psGetManagerId.close();
+			rsGetBeneficiaryId.close();
+			psGetBeneficiaryId.close();
+			psInsertAccount.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 
 	/**
 	 * Adds a property asset corresponding to <code>assetCode</code> (which is
 	 * assumed to already exist in the database) to the account corresponding to the
-	 * provided <code>accountNumber</code>.
+	 * provided <code>accountCode</code>.
 	 *
 	 * @param accountNumber
 	 * @param assetCode
 	 * @param purchasedDate
 	 * @param purchasedPrice
 	 */
-	public static final void addPropertyToAccount(String accountNumber, String assetCode, String purchasedDate,
+	public static final void addPropertyToAccount(String accountCode, String assetCode, String purchasedDate,
 			double purchasedPrice) {
-		// TODO: implement
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String accountIdQuery = "Select accountId from Account where accountCode = ?;";
+		PreparedStatement psGetAccountId = null;
+		ResultSet rsGetAccountId = null;
+		int accountId = 0;
+
+		String propertyIdQuery = "Select assetId from Asset where assetCode = ?;";
+		PreparedStatement psGetPropertyId = null;
+		ResultSet rsGetPropertyId = null;
+		int assetId = 0;
+
+		String insertAccountAssetQuery = "insert into AccountAsset"
+				+ "(purchasedDate, purchasedPrice, purchasedExchangeRate, numCoins, purchasedSharePrice, numShares, dividendTotal, optionType, strikePrice, shareLimit, premium, strikeDate, accountId, assetId) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement psInsertAccountAsset = null;
+		try {
+			psGetAccountId = conn.prepareStatement(accountIdQuery);
+			psGetAccountId.setString(1, accountCode);
+			rsGetAccountId = psGetAccountId.executeQuery();
+
+			psGetPropertyId = conn.prepareStatement(propertyIdQuery);
+			psGetPropertyId.setString(1, assetCode);
+			rsGetPropertyId = psGetPropertyId.executeQuery();
+			if (rsGetAccountId.next()) {
+				accountId = rsGetAccountId.getInt("accountId");
+			}
+			if (rsGetPropertyId.next()) {
+				assetId = rsGetPropertyId.getInt("assetId");
+			}
+			psInsertAccountAsset = conn.prepareStatement(insertAccountAssetQuery);
+			psInsertAccountAsset.setString(1, purchasedDate);
+			psInsertAccountAsset.setDouble(2, purchasedPrice);
+			psInsertAccountAsset.setNull(3, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(4, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(5, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(6, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(7, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(8, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(9, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(10, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(11, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(12, java.sql.Types.VARCHAR);
+			psInsertAccountAsset.setInt(13, accountId);
+			psInsertAccountAsset.setInt(14, assetId);
+			psInsertAccountAsset.executeUpdate();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add property to account.");
+			throw new RuntimeException(e);
+		}
+		try {
+			rsGetAccountId.close();
+			psGetAccountId.close();
+			rsGetPropertyId.close();
+			psGetPropertyId.close();
+			psInsertAccountAsset.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
+	}
+
+	/**
+	 * Adds a cryptocurrency asset corresponding to <code>assetCode</code> (which is
+	 * assumed to already exist in the database) to the account corresponding to the
+	 * provided <code>accountCode</code>.
+	 *
+	 * @param accountCode
+	 * @param assetCode
+	 * @param purchasedDate
+	 * @param purchasedExchangeRate
+	 * @param numCoins
+	 */
+	public static final void addCryptoToAccount(String accountCode, String assetCode, String purchasedDate,
+			double purchasedExchangeRate, double numCoins) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String accountIdQuery = "Select accountId from Account where accountCode = ?;";
+		PreparedStatement psGetAccountId = null;
+		ResultSet rsGetAccountId = null;
+		int accountId = 0;
+
+		String cryptocurrencyIdQuery = "Select assetId from Asset where assetCode = ?;";
+		PreparedStatement psGetCryptocurrencyId = null;
+		ResultSet rsGetCryptocurrencyId = null;
+		int assetId = 0;
+
+		String insertAccountAssetQuery = "insert into AccountAsset"
+				+ "(purchasedDate, purchasedPrice, purchasedExchangeRate, numCoins, purchasedSharePrice, numShares, dividendTotal, optionType, strikePrice, shareLimit, premium, strikeDate, accountId, assetId) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement psInsertAccountAsset = null;
+		try {
+			psGetAccountId = conn.prepareStatement(accountIdQuery);
+			psGetAccountId.setString(1, accountCode);
+			rsGetAccountId = psGetAccountId.executeQuery();
+
+			psGetCryptocurrencyId = conn.prepareStatement(cryptocurrencyIdQuery);
+			psGetCryptocurrencyId.setString(1, assetCode);
+			rsGetCryptocurrencyId = psGetCryptocurrencyId.executeQuery();
+			if (rsGetAccountId.next()) {
+				accountId = rsGetAccountId.getInt("accountId");
+			}
+			if (rsGetCryptocurrencyId.next()) {
+				assetId = rsGetCryptocurrencyId.getInt("assetId");
+			}
+			psInsertAccountAsset = conn.prepareStatement(insertAccountAssetQuery);
+			psInsertAccountAsset.setString(1, purchasedDate);
+			psInsertAccountAsset.setNull(2, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setDouble(3, purchasedExchangeRate);
+			psInsertAccountAsset.setDouble(4, numCoins);
+			psInsertAccountAsset.setNull(5, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(6, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(7, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(8, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(9, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(10, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(11, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(12, java.sql.Types.VARCHAR);
+			psInsertAccountAsset.setInt(13, accountId);
+			psInsertAccountAsset.setInt(14, assetId);
+			psInsertAccountAsset.executeUpdate();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add cryptocurrency to account.");
+			throw new RuntimeException(e);
+		}
+		try {
+			rsGetAccountId.close();
+			psGetAccountId.close();
+			rsGetCryptocurrencyId.close();
+			psGetCryptocurrencyId.close();
+			psInsertAccountAsset.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 
 	/**
 	 * Adds a stock asset corresponding to <code>assetCode</code> (which is assumed
 	 * to already exist in the database) to the account corresponding to the
-	 * provided <code>accountNumber</code>.
+	 * provided <code>accountCode</code>.
 	 *
 	 * @param accountNumber
 	 * @param assetCode
@@ -213,15 +607,83 @@ public final class AccountData {
 	 * @param numShares
 	 * @param dividendTotal
 	 */
-	public static final void addStockToAccount(String accountNumber, String assetCode, String purchasedDate,
+	public static final void addStockToAccount(String accountCode, String assetCode, String purchasedDate,
 			double purchasedSharePrice, double numShares, double dividendTotal) {
-		// TODO: implement
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String accountIdQuery = "Select accountId from Account where accountCode = ?;";
+		PreparedStatement psGetAccountId = null;
+		ResultSet rsGetAccountId = null;
+		int accountId = 0;
+
+		String stockIdQuery = "Select assetId from Asset where assetCode = ?;";
+		PreparedStatement psGetStockId = null;
+		ResultSet rsGetStockId = null;
+		int assetId = 0;
+
+		String insertAccountAssetQuery = "insert into AccountAsset"
+				+ "(purchasedDate, purchasedPrice, purchasedExchangeRate, numCoins, purchasedSharePrice, numShares, dividendTotal, optionType, strikePrice, shareLimit, premium, strikeDate, accountId, assetId) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement psInsertAccountAsset = null;
+		try {
+			psGetAccountId = conn.prepareStatement(accountIdQuery);
+			psGetAccountId.setString(1, accountCode);
+			rsGetAccountId = psGetAccountId.executeQuery();
+
+			psGetStockId = conn.prepareStatement(stockIdQuery);
+			psGetStockId.setString(1, assetCode);
+			rsGetStockId = psGetStockId.executeQuery();
+			if (rsGetAccountId.next()) {
+				accountId = rsGetAccountId.getInt("accountId");
+			}
+			if (rsGetStockId.next()) {
+				assetId = rsGetStockId.getInt("assetId");
+			}
+			psInsertAccountAsset = conn.prepareStatement(insertAccountAssetQuery);
+			psInsertAccountAsset.setString(1, purchasedDate);
+			psInsertAccountAsset.setNull(2, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(3, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(4, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setDouble(5, purchasedSharePrice);
+			psInsertAccountAsset.setDouble(6, numShares);
+			psInsertAccountAsset.setDouble(7, dividendTotal);
+			psInsertAccountAsset.setNull(8, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(9, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(10, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(11, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(12, java.sql.Types.VARCHAR);
+			psInsertAccountAsset.setInt(13, accountId);
+			psInsertAccountAsset.setInt(14, assetId);
+			psInsertAccountAsset.executeUpdate();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add cryptocurrency to account.");
+			throw new RuntimeException(e);
+		}
+		try {
+			rsGetAccountId.close();
+			psGetAccountId.close();
+			rsGetStockId.close();
+			psGetStockId.close();
+			psInsertAccountAsset.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 
 	/**
 	 * Adds a stock option asset corresponding to <code>assetCode</code> (which is
 	 * assumed to already exist in the database) to the account corresponding to
-	 * the* provided <code>accountNumber</code>.
+	 * the* provided <code>accountCode</code>.
 	 *
 	 * @param accountNumber
 	 * @param assetCode
@@ -232,8 +694,76 @@ public final class AccountData {
 	 * @param premium
 	 * @param strikePrice
 	 */
-	public static final void addStockOptionToAccount(String accountNumber, String assetCode, String purchasedDate,
+	public static final void addStockOptionToAccount(String accountCode, String assetCode, String purchasedDate,
 			String optionType, String strikeDate, double shareLimit, double premium, double strikePrice) {
-		// TODO: implement
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(DatabaseInfo.URL, DatabaseInfo.USERNAME, DatabaseInfo.PASSWORD);
+		} catch (SQLException e) {
+			System.err.println("SQLException: Connection failed.");
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		String accountIdQuery = "Select accountId from Account where accountCode = ?;";
+		PreparedStatement psGetAccountId = null;
+		ResultSet rsGetAccountId = null;
+		int accountId = 0;
+
+		String stockOptionIdQuery = "Select assetId from Asset where assetCode = ?;";
+		PreparedStatement psGetStockOptionId = null;
+		ResultSet rsGetStockOptionId = null;
+		int assetId = 0;
+
+		String insertAccountAssetQuery = "insert into AccountAsset"
+				+ "(purchasedDate, purchasedPrice, purchasedExchangeRate, numCoins, purchasedSharePrice, numShares, dividendTotal, optionType, strikePrice, shareLimit, premium, strikeDate, accountId, assetId) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement psInsertAccountAsset = null;
+		try {
+			psGetAccountId = conn.prepareStatement(accountIdQuery);
+			psGetAccountId.setString(1, accountCode);
+			rsGetAccountId = psGetAccountId.executeQuery();
+
+			psGetStockOptionId = conn.prepareStatement(stockOptionIdQuery);
+			psGetStockOptionId.setString(1, assetCode);
+			rsGetStockOptionId = psGetStockOptionId.executeQuery();
+			if (rsGetAccountId.next()) {
+				accountId = rsGetAccountId.getInt("accountId");
+			}
+			if (rsGetStockOptionId.next()) {
+				assetId = rsGetStockOptionId.getInt("assetId");
+			}
+			psInsertAccountAsset = conn.prepareStatement(insertAccountAssetQuery);
+			psInsertAccountAsset.setString(1, purchasedDate);
+			psInsertAccountAsset.setNull(2, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(3, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(4, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(5, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(6, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setNull(7, java.sql.Types.DOUBLE);
+			psInsertAccountAsset.setString(8, optionType);
+			psInsertAccountAsset.setDouble(9, strikePrice);
+			psInsertAccountAsset.setDouble(10, shareLimit);
+			psInsertAccountAsset.setDouble(11, premium);
+			psInsertAccountAsset.setString(12, strikeDate);
+			psInsertAccountAsset.setInt(13, accountId);
+			psInsertAccountAsset.setInt(14, assetId);
+			psInsertAccountAsset.executeUpdate();
+
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot add cryptocurrency to account.");
+			throw new RuntimeException(e);
+		}
+		try {
+			rsGetAccountId.close();
+			psGetAccountId.close();
+			rsGetStockOptionId.close();
+			psGetStockOptionId.close();
+			psInsertAccountAsset.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.err.println("SQLException: Cannot close for some reason.");
+			throw new RuntimeException(e);
+		}
+		return;
 	}
 }

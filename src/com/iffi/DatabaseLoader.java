@@ -182,65 +182,67 @@ public final class DatabaseLoader {
 		}
 
 		String accountAssetQuery = "select a1.assetId, a1.assetCode, a1.assetType, a1.label,"
-				+ "a1.currentAppraisedValue, " + "a1.currentExchangeRate, a1.exchangeRateFee, "
+				+ "a1.currentAppraisedValue, " + "a1.currentExchangeRate, a1.exchangeFeeRate,"
 				+ "a1.symbol, a1.currentSharePrice, " + "a.purchasedDate," + "a.purchasedPrice,"
 				+ "a.purchasedExchangeRate, a.numCoins,"
 				+ "a.purchasedSharePrice, a.numShares, a.dividendTotal, a.optionType,"
 				+ "a.strikePrice, a.shareLimit, a.premium, a.strikeDate,"
 				+ "a.accountId, a.assetId from AccountAsset a join Asset a1 on a.assetId = a1.assetId where accountId = ?;";
-		PreparedStatement psAccountAsset = null;
-		ResultSet rsAccountAsset = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
 		try {
-			psAccountAsset = conn.prepareStatement(accountAssetQuery);
-			psAccountAsset.setInt(1, accountId);
-			rsAccountAsset = psAccountAsset.executeQuery();
-			while (rsAccountAsset.next()) {
-				int assetId = rsAccountAsset.getInt("assetId");
-				String assetCode = rsAccountAsset.getString("assetCode");
-				String assetType = rsAccountAsset.getString("assetType");
-				String label = rsAccountAsset.getString("label");
+			ps = conn.prepareStatement(accountAssetQuery);
+			ps.setInt(1, accountId);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				int assetIdFromDataBase = rs.getInt("assetId");
+				String assetCode = rs.getString("assetCode");
+				String assetType = rs.getString("assetType");
+				String label = rs.getString("label");
 
-				LocalDate purchasedDate = LocalDate.parse(rsAccountAsset.getString("purchasedDate"));
+				LocalDate purchasedDate = LocalDate.parse(rs.getString("purchasedDate"));
 
 				if (assetType.equals("P")) {
-					double currentAppraisedValue = rsAccountAsset.getDouble("currentAppraisedValue");
+					double currentAppraisedValue = rs.getDouble("currentAppraisedValue");
 					a = new Property(assetCode, label, currentAppraisedValue);
-					double purchasedPrice = rsAccountAsset.getDouble("purchasedPrice");
-					a = new Property(assetId, ((Property) a), purchasedDate, purchasedPrice);
+					double purchasedPrice = rs.getDouble("purchasedPrice");
+					a = new Property(assetIdFromDataBase, ((Property) a), purchasedDate, purchasedPrice);
 					accountAssetList.add(a);
 				} else if (assetType.equals("C")) {
-					double currentExchangeRate = rsAccountAsset.getDouble("currentExchangeRate");
-					double exchangeFeeRate = rsAccountAsset.getDouble("exchangeRateFee");
+					double currentExchangeRate = rs.getDouble("currentExchangeRate");
+					double exchangeFeeRate = rs.getDouble("exchangeFeeRate");
 					a = new Cryptocurrency(assetCode, label, currentExchangeRate, exchangeFeeRate);
-					double purchasedExchangeRate = rsAccountAsset.getDouble("purchasedExchangeRate");
-					double numCoins = rsAccountAsset.getDouble("numCoins");
-					a = new Cryptocurrency(assetId, ((Cryptocurrency) a), purchasedDate, purchasedExchangeRate,
+					double purchasedExchangeRate = rs.getDouble("purchasedExchangeRate");
+					double numCoins = rs.getDouble("numCoins");
+					a = new Cryptocurrency(assetIdFromDataBase, ((Cryptocurrency) a), purchasedDate, purchasedExchangeRate,
 							numCoins);
 					accountAssetList.add(a);
 				} else if (assetType.equals("S")) {
-					String symbol = rsAccountAsset.getString("symbol");
-					double currentSharePrice = rsAccountAsset.getDouble("currentSharePrice");
+			
+					String symbol = rs.getString("symbol");
+					double currentSharePrice = rs.getDouble("currentSharePrice");
 					a = new Stock(assetCode, label, symbol, currentSharePrice);
-					double purchasedSharePrice = rsAccountAsset.getDouble("purchasedSharePrice");
-					double numShares = rsAccountAsset.getDouble("numShares");
-					double dividendTotal = rsAccountAsset.getDouble("dividendTotal");
-					String optionType = rsAccountAsset.getString("optionType");
+	
+					String optionType = rs.getString("optionType");
 					a = new Stock(((Stock) a), purchasedDate);
-					if (optionType.equals("S")) {
-						Stock s = new Stock(assetId, ((Stock) a), purchasedSharePrice, numShares, dividendTotal);
+					if (rs.getString("optionType") == null) {
+						double purchasedSharePrice = rs.getDouble("purchasedSharePrice");
+						double numShares = rs.getDouble("numShares");
+						double dividendTotal = rs.getDouble("dividendTotal");
+						Stock s = new Stock(assetIdFromDataBase, ((Stock) a), purchasedSharePrice, numShares, dividendTotal);
 						accountAssetList.add(s);
 					} else if (optionType.equals("C") || optionType.equals("P")) {
-						double strikePrice = rsAccountAsset.getDouble("strikePrice");
-						double shareLimit = rsAccountAsset.getDouble("shareLimit");
-						double premium = rsAccountAsset.getDouble("premium");
-						LocalDate strikeDate = LocalDate.parse(rsAccountAsset.getString("strikeDate"));
+						double strikePrice = rs.getDouble("strikePrice");
+						double shareLimit = rs.getDouble("shareLimit");
+						double premium = rs.getDouble("premium");
+						LocalDate strikeDate = LocalDate.parse(rs.getString("strikeDate"));
 						StockOption so = new StockOption((Stock) a, strikePrice, shareLimit, premium, strikeDate);
 						if (optionType.equals("C")) {
-							Call c = new Call(assetId, so);
+							Call c = new Call(assetIdFromDataBase, so);
 							accountAssetList.add(c);
 						} else if (optionType.equals("P")) {
-							Put p = new Put(assetId, so);
+							Put p = new Put(assetIdFromDataBase, so);
 							accountAssetList.add(p);
 						}
 					}
@@ -253,8 +255,8 @@ public final class DatabaseLoader {
 		}
 
 		try {
-			rsAccountAsset.close();
-			psAccountAsset.close();
+			rs.close();
+			ps.close();
 			conn.close();
 		} catch (SQLException e) {
 			System.err.println("SQLException: Cannot close for some reason.");
@@ -290,7 +292,7 @@ public final class DatabaseLoader {
 			ps = conn.prepareStatement(accountQuery);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				int accountId = rs.getInt("accountId");
+				int accountIdFromDataBase = rs.getInt("accountId");
 				String accountCode = rs.getString("accountCode");
 				String accountType = rs.getString("accountType");
 				int ownerId = rs.getInt("ownerId");
@@ -302,15 +304,15 @@ public final class DatabaseLoader {
 				getPersonEmailsByPersonId(owner, ownerId);
 				getPersonEmailsByPersonId(manager, managerId);
 				getPersonEmailsByPersonId(beneficiary, beneficiaryId);
-				ArrayList<Asset> assetList = getAccountAssetsByAccountId(accountId);
+				ArrayList<Asset> assetList = getAccountAssetsByAccountId(accountIdFromDataBase);
 				if (accountType.equals("P")) {
-					a = new Pro(accountId, accountCode, owner, manager, beneficiary);
+					a = new Pro(accountIdFromDataBase, accountCode, owner, manager, beneficiary);
 					for (Asset a1 : assetList) {
 						a.addAsset(a1);
 					}
 				}
 				if (accountType.equals("N")) {
-					a = new Noob(accountId, accountCode, owner, manager, beneficiary);
+					a = new Noob(accountIdFromDataBase, accountCode, owner, manager, beneficiary);
 					for (Asset a1 : assetList) {
 						a.addAsset(a1);
 					}
