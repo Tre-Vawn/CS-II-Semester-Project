@@ -131,7 +131,7 @@ public final class CSVFileLoader {
 					for (Asset a : assets) {
 						if (count <= tokens.length - 1) {
 							found = false;
-							if (tokens[count].equals(a.getCode())) {
+							if (tokens[count].equals(a.getAssetCode())) {
 								if (a.getClass() == Property.class && !found) {
 									found = true;
 									Property p = new Property((Property) a, LocalDate.parse(tokens[count + 1]),
@@ -149,7 +149,7 @@ public final class CSVFileLoader {
 
 								} else if (tokens[count + 1].equals("S") && !found) {
 									found = true;
-									Stock s = new Stock(a, LocalDate.parse(tokens[count + 2]),
+									Stock s = new Stock((Stock) a, LocalDate.parse(tokens[count + 2]),
 											Double.parseDouble(tokens[count + 3]),
 											Double.parseDouble(tokens[count + 4]),
 											Double.parseDouble(tokens[count + 5]));
@@ -157,8 +157,7 @@ public final class CSVFileLoader {
 									count += 6;
 								} else if (tokens[count + 1].equals("P") && !found) {
 									found = true;
-									StockOption s = new StockOption((Stock) a, LocalDate.parse(tokens[count + 2]),
-											Double.parseDouble(tokens[count + 3]),
+									StockOption s = new StockOption((Stock) a, Double.parseDouble(tokens[count + 3]),
 											Double.parseDouble(tokens[count + 4]),
 											Double.parseDouble(tokens[count + 5]), LocalDate.parse(tokens[count + 6]));
 									Put p = new Put(s);
@@ -166,8 +165,7 @@ public final class CSVFileLoader {
 									count += 7;
 								} else if (tokens[count + 1].equals("C") && !found) {
 									found = true;
-									StockOption s = new StockOption((Stock) a, LocalDate.parse(tokens[count + 2]),
-											Double.parseDouble(tokens[count + 3]),
+									StockOption s = new StockOption((Stock) a, Double.parseDouble(tokens[count + 3]),
 											Double.parseDouble(tokens[count + 4]),
 											Double.parseDouble(tokens[count + 5]), LocalDate.parse(tokens[count + 6]));
 									Call c = new Call(s);

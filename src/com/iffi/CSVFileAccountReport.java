@@ -17,6 +17,6 @@ public final class CSVFileAccountReport {
 		ArrayList<Asset> assets = CSVFileLoader.loadAssetCSVFile();
 		ArrayList<Account> accounts = CSVFileLoader.loadAccountCSVFile(assets, people);
 
-		AccountReportPrinter.printAccountReport(accounts);
+		//AccountReportPrinter.printAccountReport(accounts);
 	}
 }

@@ -21,34 +21,30 @@ public class Stock extends Asset {
 	@XStreamOmitField
 	private double dividendTotal;
 
-	protected Stock(String code, String label, String symbol, double currentSharePrice) {
-		super(code, label);
+	protected Stock(String assetCode, String label, String symbol, double currentSharePrice) {
+		super(assetCode, label);
 		this.symbol = symbol;
 		this.currentSharePrice = currentSharePrice;
 	}
-	protected Stock(Asset a, String symbol, double currentSharePrice) {
-		super(a.code, a.label);
-		this.symbol = symbol;
-		this.currentSharePrice = currentSharePrice;
+	
+	protected Stock(Stock s, LocalDate purchasedDate) {
+		this(s.getAssetCode(), s.getLabel(), s.getSymbol(), s.getCurrentSharePrice());
+		this.purchasedDate = purchasedDate;
 	}
-	protected Stock(Asset a, LocalDate purchasedDate, double purchasedSharePrice, double numShares,
+
+	protected Stock(Stock s, LocalDate purchasedDate, double purchasedSharePrice, double numShares,
 			double dividendTotal) {
-		this(a.assetId, a.code, a.label, ((Stock) a).getSymbol(), ((Stock) a).getCurrentSharePrice());
+		this(s.getAssetCode(), s.getLabel(), s.getSymbol(), s.getCurrentSharePrice());
 		this.purchasedDate = purchasedDate;
 		this.purchasedSharePrice = purchasedSharePrice;
 		this.numShares = numShares;
 		this.dividendTotal = dividendTotal;
 	}
 
-	protected Stock(Integer assetId, String code, String label, String symbol, double currentSharePrice) {
-		super(assetId, code, label);
-		this.symbol = symbol;
-		this.currentSharePrice = currentSharePrice;
-	}
-	
-	protected Stock(Integer assetId, Stock s, LocalDate purchasedDate, double purchasedSharePrice, double numShares, double dividendTotal) {
-		this(s.assetId, s.getCode(), s.getLabel(), s.getSymbol(), s.getCurrentSharePrice());
-		this.purchasedDate = purchasedDate;
+	protected Stock(Integer assetId, Stock s, double purchasedSharePrice, double numShares,
+			double dividendTotal) {
+		this(s, s.getPurchasedDate());
+		this.assetId = assetId;
 		this.purchasedSharePrice = purchasedSharePrice;
 		this.numShares = numShares;
 		this.dividendTotal = dividendTotal;
@@ -87,7 +83,7 @@ public class Stock extends Asset {
 	}
 
 	public String toString() {
-		return String.format("%s   %s   %s  (Stock)\n", this.getCode(), this.getLabel(), this.getSymbol())
+		return String.format("%s   %s   %s  (Stock)\n", this.getAssetCode(), this.getLabel(), this.getSymbol())
 				+ String.format("  Cost Basis: %.3f shares @ $%.2f on %s\n", this.getNumShares(),
 						this.getPurchasedSharePrice(), this.getPurchasedDate())
 				+ String.format("  Value Basis: %.3f shares @ $%.2f\n", this.getNumShares(),

@@ -1,20 +1,20 @@
 Account Summary Report By Owner
-========================================================================================================================
-Account			Owner					Manager					Fees			Return			Return%	      Value
-AC001           Castro, Sam             Cartnell, Billiam      $82.50          $700612.23       1693.486%     $741983.23
-AC002           Sampson, Rocky          Rainey, Tre-Vawn       $82.50          $1216967.79      10573.291%     $1228477.62
-AC003           Morales, Miles          Cartnell, Billiam      $110.00         $-9430.45        -79.027%     $2502.75
-AC004           Wood, Ethan             Bopp, Logan            $30.00          $60949.84        1703.606%     $64527.54
-AC005           Sveum, Gale             Bourke, Chris          $110.00         $119496540.34    23722.617%     $120000264.45
-AC006           Sveum, Gale             Bourke, Chris          $0.00           $-1040.00        -100.000%     $0.00 
-AC007           Sveum, Gale             Bourke, Chris          $0.00           $-224670.00      -Infinity%     $-224670.00
-AC008           Sveum, Gale             Bourke, Chris          $0.00           $16907.44        Infinity%     $16907.44
-                                                     -------------------------------------------------------------------
-                                                     Totals    $415.00         $121256837.20                 $121829993.03
+=================================================================================================================================
+Account		Owner			Manager			Fees		Return			Return%	      Value
+AC001           Castro, Sam             Cartnell, Billiam      $82.50           $374198.36              83.620%     $821698.36    
+AC002           Sampson, Rocky          Rainey, Tre-Vawn       $75.00           $-60581.48             -93.470%     $4232.52      
+AC003           Morales, Miles          Rahe, Michael          $100.00          $550155.10             378.595%     $695470.00    
+AC004           Wood, Ethan             Bopp, Logan            $0.00            $-614155.35            -98.700%     $8090.05      
+AC005           Sveum, Gale             Bourke, Chris          $110.00          $119466224.42        22358.052%     $120000556.42 
+ACOO6           Sveum, Gale             Bourke, Chris          $0.00            $-72560.00             -86.381%     $11440.00     
+ACOO7           Sveum, Gale             Bourke, Chris          $0.00            $-21894.00            -100.000%     $0.00         
+AC008           Sveum, Gale             Bourke, Chris          $0.00            $235.92                 15.166%     $1791.52      
+                                                     ----------------------------------------------------------------------------
+                                                     Totals    $367.50         $119621622.97                        $121543278.87
 
 
 Account Details
-========================================================================================================================
+=================================================================================================================================
 ======================================
 ||    Pro Account  AC001          ||
 ======================================
@@ -22,40 +22,40 @@ Account Details
 |  Owner  |
 +---------+
 Castro, Sam
-[scastro@cubs.com sam_castro13@cubs.com ]
+[scastro@cubs.com, sam_castro13@gmail.com]
 1060 O Street, Chicago, IL, 60613, USA
 +-----------+
 |  Manager  |
 +-----------+
 Cartnell, Billiam
-[bcartnell@doctors.com dr@who.com ]
+[bcartnell@doctors.com, dr@who.com]
 1060 West Apple Street, Chicago, IL, 60613, USA
 +---------------+
 |  Beneficiary  |
 +---------------+
 Morales, Miles
-[null ]
-123 Mean Street, Ottawa, ON, KIA 0G9, Canada
+[]
+123 Mean Street, Ottawa, ON, K1A 0G9, Canada
 +----------+
 |  Assets  |
 +----------+
-PA001   Park Palace   (Property)
-  Cost Basis: purchased @ $41000.00 on 2015-04-05
-  Value Basis: appraised @ $400000.00
-                                                                                    875.610%     $400000.00
-
 TRE003   Trecoin   (Cryptocurrency)
-  Cost Basis: 5.300 coins @ $70.00 on 2015-03-01
-  Value Basis: 5.300 coins @ $65694.50 less 1.78%                                 92078.768%     $341983.23
+  Cost Basis: 6.250 coins @ $6000.00 on 2015-03-01
+  Value Basis: 6.250 coins @ $68694.50 less 1.78%                                  1024.529%     $421698.36
+
+PA001   Park Palace   (Property)
+  Cost Basis: purchased @ $410000.00 on 2021-04-05
+  Value Basis: appraised @ $400000.00
+                                                                                     -2.439%     $400000.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $ 741983.23
-Cost Basis:          $  41371.00
+Total Value:         $ 821698.36
+Cost Basis:          $ 447500.00
 Total Account Fees:  $     82.50
-Total Return:        $ 700612.23
-Total Return %:          1693.49%
+Total Return:        $ 374198.36
+Total Return %:            83.62%
 
 ======================================
 ||    Pro Account  AC002          ||
@@ -64,40 +64,41 @@ Total Return %:          1693.49%
 |  Owner  |
 +---------+
 Sampson, Rocky
-[rock_f_sampson@gmail.com rampson@venture.com ]
-123 N 2nd St, Omaha, NE, 68116, USA
+[rock_f_sampson@gmail.com, rampson@venture.com]
+123 N 1st Street, Omaha, NE, 68116, USA
 +-----------+
 |  Manager  |
 +-----------+
 Rainey, Tre-Vawn
-[trainey3@huskers.unl.edu ptrou32@unl.edu ]
+[trainey3@huskers.unl.edu, ptrou32@unl.edu]
 1060 West Apple Street, Chicago, IL, 60613, USA
 +---------------+
 |  Beneficiary  |
 +---------------+
 Sveum, Gale
-[sveum@cubs.com ]
+[sveum@cubs.com]
 1060 West Apple Street, Chicago, IL, 60613, USA
 +----------+
 |  Assets  |
 +----------+
-PA004   2005 Honda CR-V   (Property)
-  Cost Basis: purchased @ $3500.00 on 1995-07-01
-  Value Basis: appraised @ $2500.00
-                                                                                    -28.571%     $2500.00
+BING001   Bing Inc.   BING  (Stock)
+  Cost Basis: 200.000 shares @ $311.57 on 2016-02-03
+  Value Basis: 200.000 shares @ $2.00
+                                                                                    -97.220%     $1732.52
 
-TRE003   Trecoin   (Cryptocurrency)
-  Cost Basis: 19.000 coins @ $421.57 on 2016-02-03
-  Value Basis: 19.000 coins @ $65694.50 less 1.78%                                 15205.913%     $1225977.62
+PA004   2005 Honda CR-V   (Property)
+  Cost Basis: purchased @ $2500.00 on 1995-07-01
+  Value Basis: appraised @ $2500.00
+                                                                                      0.000%     $2500.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $1228477.62
-Cost Basis:          $  11509.83
-Total Account Fees:  $     82.50
-Total Return:        $1216967.79
-Total Return %:         10573.29%
+Total Value:         $   4232.52
+Cost Basis:          $  64814.00
+Total Account Fees:  $     75.00
+Total Return:        $ -60581.48
+Total Return %:           -93.47%
 
 ======================================
 ||    Noob Account AC003         ||
@@ -106,40 +107,41 @@ Total Return %:         10573.29%
 |  Owner  |
 +---------+
 Morales, Miles
-[null ]
-123 Mean Street, Ottawa, ON, KIA 0G9, Canada
+[]
+123 Mean Street, Ottawa, ON, K1A 0G9, Canada
 +-----------+
 |  Manager  |
 +-----------+
-Cartnell, Billiam
-[bcartnell@doctors.com dr@who.com ]
-1060 West Apple Street, Chicago, IL, 60613, USA
+Rahe, Michael
+[mrahe@whofan.com]
+301 Back St W, Toronto, ON, M5V 2T6, Canada
 +---------------+
 |  Beneficiary  |
 +---------------+
 Wood, Ethan
-[finn@atime.com ]
-123 Tree House, Nebraska City, NE, 68410, USA
+[finn@atime.com]
+123 Tree House, Nebraska City, NE, 68116, USA
 +----------+
 |  Assets  |
 +----------+
-PA004   2005 Honda CR-V   (Property)
-  Cost Basis: purchased @ $10600.00 on 2020-03-01
-  Value Basis: appraised @ $2500.00
-                                                                                    -76.415%     $2500.00
+123SAM   Samsung   SAMS  (Stock)
+  Cost Basis: 1030.000 shares @ $130.83 on 2001-10-30
+  Value Basis: 1030.000 shares @ $5.00
+                                                                                    -88.520%     $15470.00
 
-BARK   Dogecoin   (Cryptocurrency)
-  Cost Basis: 10.100 coins @ $132.00 on 2001-10-30
-  Value Basis: 10.100 coins @ $0.28 less 2.44%                                   -99.794%     $2.75
+PA005   2022 Tesla Roadster   (Property)
+  Cost Basis: purchased @ $10560.00 on 2020-03-01
+  Value Basis: appraised @ $680000.00
+                                                                                   6339.394%     $680000.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $   2502.75
-Cost Basis:          $  11933.20
-Total Account Fees:  $    110.00
-Total Return:        $  -9430.45
-Total Return %:           -79.03%
+Total Value:         $ 695470.00
+Cost Basis:          $ 145314.90
+Total Account Fees:  $    100.00
+Total Return:        $ 550155.10
+Total Return %:           378.60%
 
 ======================================
 ||    Noob Account AC004         ||
@@ -148,13 +150,13 @@ Total Return %:           -79.03%
 |  Owner  |
 +---------+
 Wood, Ethan
-[finn@atime.com ]
-123 Tree House, Nebraska City, NE, 68410, USA
+[finn@atime.com]
+123 Tree House, Nebraska City, NE, 68116, USA
 +-----------+
 |  Manager  |
 +-----------+
 Bopp, Logan
-[null ]
+[]
 1 Wall Street, New York, NY, 10005-0012, USA
 +---------------+
 |  Beneficiary  |
@@ -162,26 +164,29 @@ Bopp, Logan
 +----------+
 |  Assets  |
 +----------+
-TRE003   Trecoin   (Cryptocurrency)
-  Cost Basis: 1.000 coins @ $938.52 on 2020-01-01
-  Value Basis: 1.000 coins @ $65694.50 less 1.78%                                  6775.201%     $64525.14
+BING001   Bing Inc.   BING  (Stock)
+  Cost Basis: 140.000 shares @ $938.52 on 2020-01-01
+  Value Basis: 140.000 shares @ $2.00
+                                                                                    -99.785%     $282.00
 
-BARK   Dogecoin   (Cryptocurrency)
-  Cost Basis: 7.750 coins @ $340.22 on 2013-04-25
-  Value Basis: 7.750 coins @ $0.28 less 2.44%                                   -99.920%     $2.11
+123SAM   Samsung   SAMS  (Stock)
+  Cost Basis: 1460.000 shares @ $335.21 on 2013-04-25
+  Value Basis: 1460.000 shares @ $5.00
+                                                                                    -98.492%     $7382.25
 
-SPICY   Flow   (Cryptocurrency)
-  Cost Basis: 0.020 coins @ $123.50 on 2016-11-03
-  Value Basis: 0.020 coins @ $15.85 less 7.50%                                   -88.129%     $0.29
+N0TPIX   3D Systems   DDD  (Stock)
+  Cost Basis: 12.000 shares @ $120.50 on 2016-11-03
+  Value Basis: 12.000 shares @ $35.40
+                                                                                    -70.553%     $425.80
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $  64527.54
-Cost Basis:          $   3577.70
-Total Account Fees:  $     30.00
-Total Return:        $  60949.84
-Total Return %:          1703.61%
+Total Value:         $   8090.05
+Cost Basis:          $ 622245.40
+Total Account Fees:  $      0.00
+Total Return:        $-614155.35
+Total Return %:           -98.70%
 
 ======================================
 ||    Noob Account AC005         ||
@@ -190,126 +195,146 @@ Total Return %:          1703.61%
 |  Owner  |
 +---------+
 Sveum, Gale
-[sveum@cubs.com ]
+[sveum@cubs.com]
 1060 West Apple Street, Chicago, IL, 60613, USA
 +-----------+
 |  Manager  |
 +-----------+
 Bourke, Chris
-[bfox@gmail.com cbourke@crazy.net ]
+[bfox@gmail.com, cbourke@crazy.net]
 1144 T St, Lincoln, NE, 68588, USA
 +---------------+
 |  Beneficiary  |
 +---------------+
 Castro, Sam
-[scastro@cubs.com sam_castro13@cubs.com ]
+[scastro@cubs.com, sam_castro13@gmail.com]
 1060 O Street, Chicago, IL, 60613, USA
 +----------+
 |  Assets  |
 +----------+
+N0TPIX   3D Systems   DDD  (Stock)
+  Cost Basis: 10.000 shares @ $12.50 on 2018-02-28
+  Value Basis: 10.000 shares @ $35.40
+                                                                                    183.200%     $354.00
+
+TRE003   Trecoin   (Cryptocurrency)
+  Cost Basis: 0.003 coins @ $69000.00 on 2021-01-01
+  Value Basis: 0.003 coins @ $68694.50 less 1.78%                                    -2.215%     $202.42
+
 PA003   First Edition Charizard   (Property)
-  Cost Basis: purchased @ $500000.00 on 2018-08-30
+  Cost Basis: purchased @ $534000.00 on 2010-08-30
   Value Basis: appraised @ $120000000.00
-                                                                                  23900.000%     $120000000.00
-
-SPICY   Flow   (Cryptocurrency)
-  Cost Basis: 0.065 coins @ $57294.00 on 2018-02-28
-  Value Basis: 0.065 coins @ $15.85 less 7.50%                                   -99.974%     $0.95
-
-123SAM   Samsung   SAMS  (Stock)
-  Cost Basis: 32.300 shares @ $0.00 on 2021-01-01
-  Value Basis: 32.300 shares @ $5.00
-                                                                                   Infinity%     $263.50
+                                                                                  22371.910%     $120000000.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $120000264.45
-Cost Basis:          $ 503724.11
+Total Value:         $120000556.42
+Cost Basis:          $ 534332.00
 Total Account Fees:  $    110.00
-Total Return:        $119496540.34
-Total Return %:         23722.62%
+Total Return:        $119466224.42
+Total Return %:         22358.05%
 
 ======================================
-||    Pro Account  AC006          ||
+||    Pro Account  ACOO6          ||
 ======================================
 +---------+
 |  Owner  |
 +---------+
 Sveum, Gale
-[sveum@cubs.com ]
+[sveum@cubs.com]
 1060 West Apple Street, Chicago, IL, 60613, USA
 +-----------+
 |  Manager  |
 +-----------+
 Bourke, Chris
-[bfox@gmail.com cbourke@crazy.net ]
+[bfox@gmail.com, cbourke@crazy.net]
 1144 T St, Lincoln, NE, 68588, USA
 +---------------+
 |  Beneficiary  |
 +---------------+
 Castro, Sam
-[scastro@cubs.com sam_castro13@cubs.com ]
+[scastro@cubs.com, sam_castro13@gmail.com]
 1060 O Street, Chicago, IL, 60613, USA
 +----------+
 |  Assets  |
 +----------+
-B0oWM   Costco   Option   COST   (Call)
-  Buy up to 104.000 shares @ $3204.00 until 2022-12-31
-  Premium of $10.00/share $1040.00 total
-  Share Price: $105.13
-  Long Call (not executed) total loss: $1040.00
+BING001   Bing Inc.   Option   BING   (Call)
+  Buy up to 200.000 shares @ $3100.00 until 2021-12-31
+  Premium of $20.00/share $4000.00 total
+  Share Price: $2.00
+  Long Call (not executed) total loss: $4000.00
+                                                                                   -100.000%     $0.00
+
+BING001   Bing Inc.   Option   BING   (Call)
+  Buy up to 400.000 shares @ $3000.00 until 2021-12-31
+  Premium of $200.00/share $80000.00 total
+  Share Price: $2.00
+  Long Call (not executed) total loss: $80000.00
+                                                                                   -100.000%     $0.00
+
+BING001   Bing Inc.   Option   BING   (Put)
+  Sell up to 122.000 shares @ $3200.00 until 2021-12-31
+  Premium of $20.00/share $2440.00 total
+  Share Price: $2.00
+  Long Put Value: = 122.000 shares @ $20.00 = $2440.00
+                                                                                    100.000%     $2440.00
+
+BING001   Bing Inc.   Option   BING   (Put)
+  Sell up to 300.000 shares @ $2900.00 until 2021-12-31
+  Premium of $30.00/share $9000.00 total
+  Share Price: $2.00
+  Long Put Value: = 300.000 shares @ $30.00 = $9000.00
+                                                                                    100.000%     $9000.00
+
++----------+
+|  Totals  |
++----------+
+Total Value:         $  11440.00
+Cost Basis:          $  84000.00
+Total Account Fees:  $      0.00
+Total Return:        $ -72560.00
+Total Return %:           -86.38%
+
+======================================
+||    Pro Account  ACOO7          ||
+======================================
++---------+
+|  Owner  |
++---------+
+Sveum, Gale
+[sveum@cubs.com]
+1060 West Apple Street, Chicago, IL, 60613, USA
++-----------+
+|  Manager  |
++-----------+
+Bourke, Chris
+[bfox@gmail.com, cbourke@crazy.net]
+1144 T St, Lincoln, NE, 68588, USA
++---------------+
+|  Beneficiary  |
++---------------+
+Castro, Sam
+[scastro@cubs.com, sam_castro13@gmail.com]
+1060 O Street, Chicago, IL, 60613, USA
++----------+
+|  Assets  |
++----------+
+BING001   Bing Inc.   Option   BING   (Call)
+  Buy up to 123.000 shares @ $2900.00 until 2021-12-31
+  Premium of $178.00/share $21894.00 total
+  Share Price: $2.00
+  Long Call (not executed) total loss: $21894.00
                                                                                    -100.000%     $0.00
 
 +----------+
 |  Totals  |
 +----------+
 Total Value:         $      0.00
-Cost Basis:          $   1040.00
+Cost Basis:          $  21894.00
 Total Account Fees:  $      0.00
-Total Return:        $  -1040.00
+Total Return:        $ -21894.00
 Total Return %:          -100.00%
-
-======================================
-||    Pro Account  AC007          ||
-======================================
-+---------+
-|  Owner  |
-+---------+
-Sveum, Gale
-[sveum@cubs.com ]
-1060 West Apple Street, Chicago, IL, 60613, USA
-+-----------+
-|  Manager  |
-+-----------+
-Bourke, Chris
-[bfox@gmail.com cbourke@crazy.net ]
-1144 T St, Lincoln, NE, 68588, USA
-+---------------+
-|  Beneficiary  |
-+---------------+
-Castro, Sam
-[scastro@cubs.com sam_castro13@cubs.com ]
-1060 O Street, Chicago, IL, 60613, USA
-+----------+
-|  Assets  |
-+----------+
-MORECHI   Chick-fil-a   Option   CFA   (Put)
-  Sell up to 100.000 shares @ $2700.00 until 2022-12-31
-  Premium of $100.00/share $10000.00 total
-  Share Price: $5046.70
-  Short Put Value: 100.000 shares @
-     ($5046.70 - $2700.00 - $100.00 = $-224670.00)
-                                                                                   -100.000%     $-224670.00
-
-+----------+
-|  Totals  |
-+----------+
-Total Value:         $-224670.00
-Cost Basis:          $      0.00
-Total Account Fees:  $      0.00
-Total Return:        $-224670.00
-Total Return %:        -Infinity%
 
 ======================================
 ||    Pro Account  AC008          ||
@@ -318,39 +343,91 @@ Total Return %:        -Infinity%
 |  Owner  |
 +---------+
 Sveum, Gale
-[sveum@cubs.com ]
+[sveum@cubs.com]
 1060 West Apple Street, Chicago, IL, 60613, USA
 +-----------+
 |  Manager  |
 +-----------+
 Bourke, Chris
-[bfox@gmail.com cbourke@crazy.net ]
+[bfox@gmail.com, cbourke@crazy.net]
 1144 T St, Lincoln, NE, 68588, USA
 +---------------+
 |  Beneficiary  |
 +---------------+
 Castro, Sam
-[scastro@cubs.com sam_castro13@cubs.com ]
+[scastro@cubs.com, sam_castro13@gmail.com]
 1060 O Street, Chicago, IL, 60613, USA
 +----------+
 |  Assets  |
 +----------+
-123SAM   Samsung   SAMS  (Stock)
-  Cost Basis: 109.760 shares @ $0.00 on 2020-01-01
-  Value Basis: 109.760 shares @ $5.00
-                                                                                   Infinity%     $872.34
+MYS   Mystery Inc.   Option   MYS   (Call)
+  Buy up to 60.000 shares @ $142.68 until 2022-12-31
+  Premium of $10.00/share $600.00 total
+  Share Price: $130.00
+  Long Call (not executed) total loss: $600.00
+                                                                                   -100.000%     $0.00
 
-MYS   Mystery Inc.   MYS  (Stock)
-  Cost Basis: 123.100 shares @ $0.00 on 2021-01-01
-  Value Basis: 123.100 shares @ $130.00
-                                                                                   Infinity%     $16035.10
+MYS   Mystery Inc.   Option   MYS   (Call)
+  Buy up to 80.000 shares @ $103.33 until 2022-12-31
+  Premium of $8.43/share $674.40 total
+  Share Price: $130.00
+  Short Call Value: 80.000 shares @
+     ($130.00 - $103.33 - $8.43 = $1459.20)
+                                                                                    216.370%     $2133.60
+
+MYS   Mystery Inc.   Option   MYS   (Call)
+  Buy up to 40.000 shares @ $125.50 until 2022-12-31
+  Premium of $6.43/share $257.20 total
+  Share Price: $130.00
+  Short Call Value: 40.000 shares @
+     ($130.00 - $125.50 - $6.43 = $-77.20)
+                                                                                    -30.016%     $180.00
+
+MYS   Mystery Inc.   Option   MYS   (Call)
+  Buy up to 12.000 shares @ $124.40 until 2022-12-31
+  Premium of $2.00/share $24.00 total
+  Share Price: $130.00
+  Short Call Value: 12.000 shares @
+     ($130.00 - $124.40 - $2.00 = $43.20)
+                                                                                    180.000%     $67.20
+
+MYS   Mystery Inc.   Option   MYS   (Put)
+  Sell up to 30.000 shares @ $127.27 until 2022-12-31
+  Premium of $13.43/share $402.90 total
+  Share Price: $130.00
+  Short Put Value: 30.000 shares @
+     ($130.00 - $127.27 - $13.43 = $321.00)
+                                                                                    100.000%     $321.00
+
+MYS   Mystery Inc.   Option   MYS   (Put)
+  Sell up to 32.000 shares @ $98.72 until 2022-12-31
+  Premium of $3.94/share $126.08 total
+  Share Price: $130.00
+  Short Put Value: 32.000 shares @
+     ($130.00 - $98.72 - $3.94 = $-874.88)
+                                                                                   -100.000%     $-874.88
+
+MYS   Mystery Inc.   Option   MYS   (Put)
+  Sell up to 30.000 shares @ $125.25 until 2022-12-31
+  Premium of $4.77/share $143.10 total
+  Share Price: $130.00
+  Short Put Value: 30.000 shares @
+     ($130.00 - $125.25 - $4.77 = $0.60)
+                                                                                    100.000%     $0.60
+
+MYS   Mystery Inc.   Option   MYS   (Put)
+  Sell up to 9.000 shares @ $124.00 until 2022-12-31
+  Premium of $2.00/share $18.00 total
+  Share Price: $130.00
+  Short Put Value: 9.000 shares @
+     ($130.00 - $124.00 - $2.00 = $-36.00)
+                                                                                   -100.000%     $-36.00
 
 +----------+
 |  Totals  |
 +----------+
-Total Value:         $  16907.44
-Cost Basis:          $      0.00
+Total Value:         $   1791.52
+Cost Basis:          $   1555.60
 Total Account Fees:  $      0.00
-Total Return:        $  16907.44
-Total Return %:         Infinity%
-
+Total Return:        $    235.92
+Total Return %:            15.17%

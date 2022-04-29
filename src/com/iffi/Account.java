@@ -11,26 +11,28 @@ import java.util.List;
  */
 public abstract class Account {
 	private final String accountCode;
-	private final Person owner;
-	private final Person manager;
-	private final Person beneficiary;
+	private final Person ownerCode;
+	private final Person managerCode;
+	private final Person beneficiaryCode;
+
 	private List<Asset> assetList;
 
 	private Integer accountId;
 
-	protected Account(String accountCode, Person owner, Person manager, Person beneficiary) {
+	protected Account(String accountCode, Person ownerCode, Person managerCode, Person beneficiaryCode) {
 		this.accountCode = accountCode;
-		this.owner = owner;
-		this.manager = manager;
-		this.beneficiary = beneficiary;
+		this.ownerCode = ownerCode;
+		this.managerCode = managerCode;
+		this.beneficiaryCode = beneficiaryCode;
 		this.assetList = new ArrayList<Asset>();
 	}
 
-	protected Account(Integer accountId, String accountCode, Person owner, Person manager, Person beneficiary) {
+	protected Account(Integer accountId, String accountCode, Person ownerCode, Person managerCode,
+			Person beneficiaryCode) {
 		this.accountCode = accountCode;
-		this.owner = owner;
-		this.manager = manager;
-		this.beneficiary = beneficiary;
+		this.ownerCode = ownerCode;
+		this.managerCode = managerCode;
+		this.beneficiaryCode = beneficiaryCode;
 		this.accountId = accountId;
 		this.assetList = new ArrayList<Asset>();
 	}
@@ -39,16 +41,16 @@ public abstract class Account {
 		return this.accountCode;
 	}
 
-	protected final Person getOwner() {
-		return this.owner;
+	public final Person getOwnerCode() {
+		return this.ownerCode;
 	}
 
-	protected final Person getManager() {
-		return this.manager;
+	public final Person getManagerCode() {
+		return this.managerCode;
 	}
 
-	protected final Person getBeneficiary() {
-		return this.beneficiary;
+	protected final Person getBeneficiaryCode() {
+		return this.beneficiaryCode;
 	}
 
 	protected final List<Asset> getAssetList() {
@@ -72,7 +74,7 @@ public abstract class Account {
 	 * 
 	 * @return
 	 */
-	protected final double getTotalReturn() {
+	public final double getTotalReturn() {
 		double count = 0.0;
 		for (Asset a : this.getAssetList()) {
 			count += a.getGain();
@@ -91,8 +93,8 @@ public abstract class Account {
 		for (Asset a : this.getAssetList()) {
 			count += a.getPurchasedPrice();
 		}
-		if(count == 0.0) {
-			if(this.getTotalValue() > 0.0) {
+		if (count == 0.0) {
+			if (this.getTotalValue() > 0.0) {
 				return 100.0;
 			} else {
 				return -100.0;
@@ -106,12 +108,25 @@ public abstract class Account {
 	 * 
 	 * @return
 	 */
-	protected final double getTotalValue() {
-		double count = 0.0;
+	public final double getTotalValue() {
+		double totalValue = 0.0;
 		for (Asset a : this.getAssetList()) {
-			count += a.getValue();
+			totalValue += a.getValue();
 		}
-		return count;
+		return totalValue;
+	}
+
+	/**
+	 * A method to get the total cost basis for an account.
+	 * 
+	 * @return
+	 */
+	protected final double getTotalCostBasis() {
+		double totalCostBasis = 0.0;
+		for (Asset a : this.getAssetList()) {
+			totalCostBasis += a.getPurchasedPrice();
+		}
+		return totalCostBasis;
 	}
 
 	/**
@@ -121,13 +136,13 @@ public abstract class Account {
 	 * @return
 	 */
 	protected abstract double getFees();
-	
+
 	public final String toString() {
-		if(this.getBeneficiary() != null) {
-			return this.accountCode + " " + this.owner.getCode() + " " + this.manager.getCode() + " "
-					+ this.beneficiary.getCode();
+		if (this.getBeneficiaryCode() != null) {
+			return this.accountCode + " " + this.ownerCode.getPersonCode() + " " + this.managerCode.getPersonCode()
+					+ " " + this.beneficiaryCode.getPersonCode();
 		}
-		return this.accountCode + " " + this.owner.getCode() + " " + this.manager.getCode() + " "
+		return this.accountCode + " " + this.ownerCode.getPersonCode() + " " + this.managerCode.getPersonCode() + " "
 				+ "----";
 	}
 }

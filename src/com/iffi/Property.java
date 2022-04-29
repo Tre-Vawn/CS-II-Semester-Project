@@ -16,24 +16,20 @@ public final class Property extends Asset {
 	@XStreamOmitField
 	private double purchasedPrice;
 
-	protected Property(String code, String label, double currentAppraisedValue) {
-		super(code, label);
+	protected Property(String assetCode, String label, double currentAppraisedValue) {
+		super(assetCode, label);
 		this.currentAppraisedValue = currentAppraisedValue;
 	}
 
 	protected Property(Property p, LocalDate purchasedDate, double purchasedPrice) {
-		this(p.getCode(), p.getLabel(), p.getCurrentAppraisedValue());
+		this(p.getAssetCode(), p.getLabel(), p.getCurrentAppraisedValue());
 		this.purchasedDate = purchasedDate;
 		this.purchasedPrice = purchasedPrice;
 	}
-
-	protected Property(Integer assetId, String code, String label, double currentAppraisedValue) {
-		super(assetId, code, label);
-		this.currentAppraisedValue = currentAppraisedValue;
-	}
 	
 	protected Property(Integer assetId, Property p, LocalDate purchasedDate, double purchasedPrice) {
-		this(p.assetId, p.getCode(), p.getLabel(), p.getCurrentAppraisedValue());
+		this(p.getAssetCode(), p.getLabel(), p.getCurrentAppraisedValue());
+		this.assetId = assetId;
 		this.purchasedDate = purchasedDate;
 		this.purchasedPrice = purchasedPrice;
 	}
@@ -55,7 +51,7 @@ public final class Property extends Asset {
 	}
 
 	public final String toString() {
-		return String.format("%s   %s   (Property)\n", this.getCode(), this.getLabel())
+		return String.format("%s   %s   (Property)\n", this.getAssetCode(), this.getLabel())
 				+ String.format("  Cost Basis: purchased @ $%.2f on %s\n", this.getPurchasedPrice(),
 						this.getPurchasedDate())
 				+ String.format("  Value Basis: appraised @ $%.2f\n", this.getValue())

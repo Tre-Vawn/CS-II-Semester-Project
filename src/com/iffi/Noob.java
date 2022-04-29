@@ -1,7 +1,5 @@
 package com.iffi;
 
-import java.util.ArrayList;
-
 /**
  * A class representing the different attributes that a noob account has.
  * 

@@ -10,33 +10,33 @@ import java.util.List;
  *
  */
 public final class Person {
-	private final String code;
+	private final String personCode;
 	private final Name name;
 	private final Address address;
 	private final ArrayList<String> emails;
 
 	private Integer personId;
 
-	protected Person(String code, Name name, Address address) {
-		this.code = code;
+	protected Person(String personCode, Name name, Address address) {
+		this.personCode = personCode;
 		this.name = name;
 		this.address = address;
 		this.emails = new ArrayList<String>();
 	}
 
-	protected Person(Integer personId, String code, Name name, Address address) {
+	protected Person(Integer personId, String personCode, Name name, Address address) {
 		this.personId = personId;
-		this.code = code;
+		this.personCode = personCode;
 		this.name = name;
 		this.address = address;
 		this.emails = new ArrayList<String>();
 	}
 
-	protected final String getCode() {
-		return this.code;
+	protected final String getPersonCode() {
+		return this.personCode;
 	}
 
-	protected final Name getName() {
+	public final Name getName() {
 		return this.name;
 	}
 
@@ -61,9 +61,9 @@ public final class Person {
 	 * @param code
 	 * @return
 	 */
-	protected static final Person findPerson(List<Person> people, String code) {
+	protected static final Person findPerson(List<Person> people, String personCode) {
 		for (Person p : people) {
-			if (p.getCode().equals(code)) {
+			if (p.getPersonCode().equals(personCode)) {
 				return p;
 			}
 		}
@@ -96,6 +96,6 @@ public final class Person {
 	}
 
 	public final String toString() {
-		return this.code + " " + this.name.toString() + " " + this.address.toString();
+		return this.personCode + " " + this.name.toString() + " " + this.address.toString();
 	}
 }
