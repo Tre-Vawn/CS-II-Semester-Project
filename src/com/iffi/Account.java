@@ -41,11 +41,11 @@ public abstract class Account {
 		return this.accountCode;
 	}
 
-	protected final Person getOwnerCode() {
+	public final Person getOwnerCode() {
 		return this.ownerCode;
 	}
 
-	protected final Person getManagerCode() {
+	public final Person getManagerCode() {
 		return this.managerCode;
 	}
 
@@ -74,7 +74,7 @@ public abstract class Account {
 	 * 
 	 * @return
 	 */
-	protected final double getTotalReturn() {
+	public final double getTotalReturn() {
 		double count = 0.0;
 		for (Asset a : this.getAssetList()) {
 			count += a.getGain();
@@ -108,7 +108,7 @@ public abstract class Account {
 	 * 
 	 * @return
 	 */
-	protected final double getTotalValue() {
+	public final double getTotalValue() {
 		double totalValue = 0.0;
 		for (Asset a : this.getAssetList()) {
 			totalValue += a.getValue();

@@ -36,7 +36,7 @@ public final class Person {
 		return this.personCode;
 	}
 
-	protected final Name getName() {
+	public final Name getName() {
 		return this.name;
 	}
 

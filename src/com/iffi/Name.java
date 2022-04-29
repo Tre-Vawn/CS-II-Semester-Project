@@ -16,12 +16,12 @@ public final class Name {
 	}
 
 	@SuppressWarnings("unused")
-	private String getLastName() {
+	public String getLastName() {
 		return this.lastName;
 	}
 
 	@SuppressWarnings("unused")
-	private String getFirstName() {
+	public String getFirstName() {
 		return this.firstName;
 	}
 

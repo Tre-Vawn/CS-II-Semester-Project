@@ -15,7 +15,7 @@ public final class AccountReportPrinter {
 	 * 
 	 * @param accounts
 	 */
-	public static final void printAccountReport(List<Account> accounts) {
+	public static final void printAccountReport(MyList<Account> accounts) {
 		System.out.println("Account Summary Report By Owner");
 		System.out.println(
 				"=================================================================================================================================");
@@ -38,6 +38,7 @@ public final class AccountReportPrinter {
 		System.out.println("                                                     Totals    $"
 				+ String.format("%-15.2f", totalReportFees) + "$" + String.format("%-36.2f", totalReportReturn) + "$"
 				+ String.format("%.2f\n", totalReportValue));
+		/*
 		System.out.println("\nAccount Details");
 		System.out.println(
 				"=================================================================================================================================");
@@ -111,6 +112,7 @@ public final class AccountReportPrinter {
 						+ "%\n");
 			}
 		}
+		*/
 		return;
 	}
 }
