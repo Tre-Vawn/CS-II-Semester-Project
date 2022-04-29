@@ -43,13 +43,12 @@ public final class Person {
 	protected final Address getAddress() {
 		return this.address;
 	}
-	
+
 	protected final ArrayList<String> getEmails() {
 		return this.emails;
 	}
 
-	@SuppressWarnings("unused")
-	private final Integer getPersonId() {
+	protected final Integer getPersonId() {
 		return this.personId;
 	}
 
@@ -80,11 +79,15 @@ public final class Person {
 		return;
 	}
 
+	/**
+	 * This fuction prints a person's emails.
+	 * 
+	 */
 	protected final void printEmails() {
 		int count = 0;
 		System.out.print("[");
 		for (String email : this.emails) {
-			if(count == this.emails.size() - 1) {
+			if (count == this.emails.size() - 1) {
 				System.out.print(email);
 			} else {
 				System.out.print(email + ", ");

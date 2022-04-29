@@ -15,17 +15,15 @@ public final class Name {
 		this.firstName = firstName;
 	}
 
-	@SuppressWarnings("unused")
-	public String getLastName() {
+	protected String getLastName() {
 		return this.lastName;
 	}
 
-	@SuppressWarnings("unused")
 	public String getFirstName() {
 		return this.firstName;
 	}
 
 	public String toString() {
-		return this.lastName + ", " + this.firstName;
+		return this.firstName + ", " + this.lastName;
 	}
 }

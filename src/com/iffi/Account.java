@@ -56,9 +56,8 @@ public abstract class Account {
 	protected final List<Asset> getAssetList() {
 		return this.assetList;
 	}
-
-	@SuppressWarnings("unused")
-	private final Integer getAccountId() {
+	
+	protected final Integer getAccountId() {
 		return this.accountId;
 	}
 
@@ -74,7 +73,7 @@ public abstract class Account {
 	 * 
 	 * @return
 	 */
-	public final double getTotalReturn() {
+	protected final double getTotalReturn() {
 		double count = 0.0;
 		for (Asset a : this.getAssetList()) {
 			count += a.getGain();
@@ -87,7 +86,7 @@ public abstract class Account {
 	 * 
 	 * @return
 	 */
-	protected final double getTotalReturnPercent() {
+	public final double getTotalReturnPercent() {
 		double totalGain = getTotalReturn();
 		double count = 0.0;
 		for (Asset a : this.getAssetList()) {
